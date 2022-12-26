@@ -24,7 +24,26 @@ videoButton.onclick=()=>{
     console.log(videoButton.textContent);
 
     switch(videoButton.textContent){
+        case 'Probar sonido':
+            texto.textContent="A continuación le aparecerán una serie de palabras, por favor leálas en voz alta. Después de click en el botón terminar";
+            videoButton.textContent ='Entendido';
+            break;
+        case 'Entendido':    
+            recognition.start();
+            texto.textContent="Esto es una prueba"
+            videoButton.textContent ='Terminar';
+            break;
+        case 'Terminar':      
+            recognition.abort();  
+            if(transcripcion.toUpperCase.includes("ESTO ES UNA PRUEBA")){
+                videoButton.textContent ='Listo';
+            }
+            else {
+                videoButton.textContent ='Probar sonido';
+            }
+            break;
         case 'Listo':
+            transcripcion="";
             videoButton.textContent ='Siguiente';
             texto.style.marginTop="40%";
             texto.textContent=preguntas[0];
