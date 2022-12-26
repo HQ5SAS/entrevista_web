@@ -1,3 +1,4 @@
+const video = document.getElementById('video_');
 const videoButton= document.getElementById('next_bttn');
 var texto =document.getElementById('pregunta_txt');
 const cronometro = document.getElementById('timer');
