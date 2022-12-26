@@ -25,6 +25,7 @@ videoButton.onclick=()=>{
 
     switch(videoButton.textContent){
         case 'Probar sonido':
+            var vartranscript = "";
             texto.textContent="A continuación le aparecerán una serie de palabras, por favor leálas en voz alta. Después de click en el botón terminar";
             videoButton.textContent ='Entendido';
             break;
@@ -35,15 +36,17 @@ videoButton.onclick=()=>{
             break;
         case 'Terminar':      
             recognition.abort();  
-            if(transcripcion.toUpperCase.includes("ESTO ES UNA PRUEBA")){
+            if(transcripcion=="Esto es una prueba."){
                 videoButton.textContent ='Listo';
+                texto.textContent="Recuerda que la entrevista es una herramienta que nos permite conocerte mejor, así que ponte cómodo y ayudanos respondiendo la preguntas que se te harán a continuación :)"
             }
             else {
+                texto.textContent="intente de nuevo por favor"
                 videoButton.textContent ='Probar sonido';
+                console.log(transcripcion);
             }
             break;
         case 'Listo':
-            transcripcion="";
             videoButton.textContent ='Siguiente';
             texto.style.marginTop="40%";
             texto.textContent=preguntas[0];
