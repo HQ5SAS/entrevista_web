@@ -1,0 +1,42 @@
+<%- include templates/header.ejs %>
+  <body class="d-flex h-100 text-center text-bg-dark">
+    
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+  <%- include templates/navbar.ejs %>
+  <body>
+    <div class="wrapper">
+      <div class="inner" id="center_container p-3">
+        <form action="">
+          <h3>Contáctanos</h3>
+          <p>Para cualquier sugerencia, duda o inquietud, déjanos tus datos y dinos cómo te podemos ayudar.</p>
+          <label class="form-group">
+          <input type="text" class="form-control" required="">
+          <span>Nombre</span>
+          </label>
+          <div class="mb-3">
+          <label class="form-group">
+            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+            <span for="">Tu correo electrónico</span>
+          </label>
+        </div>
+        <div class="mb-3">
+            <label class="form-group">
+              <textarea class="form-control" id="mensaje_input" rows="3"></textarea>
+              <span>Mensaje</span>
+            </label>
+        </div>
+          
+            <button class="btn btn-lg btn-secondary fw-bold border-white">Submit
+            <i class="zmdi zmdi-arrow-right"></i>
+
+            </button>
+        </form>
+      </div>
+    </div>  
+   
+  </main>
+
+  <%- include templates/footer.ejs %>
+</div>
+<script rel="stylesheet" src="./script.js"></script>
+</body></html>

@@ -1,0 +1,43 @@
+
+#cotainer_video {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  height: 100vh;
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+}
+#video {
+  max-width: 30%;
+  border-radius: 20%;
+  
+}
+
+.center_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 1%;
+  padding: 0;
+  margin: 0;
+}
+#divicionDerecha
+{
+  border-bottom-left-radius: 20px;
+  border-top-left-radius:20px ;
+  background-color: blanchedalmond;
+
+}
+.center_ {
+  margin-top: 15%;
+  margin-left: 5%;
+  margin-right: 5%;
+  
+}
+#pregunta_txt{
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.5vw;
+  height: 40%;
+
+}
