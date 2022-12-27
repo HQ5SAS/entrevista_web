@@ -17,7 +17,6 @@ var preguntas=[
 ]
 var countPreguntas=0;
 var transcripcion="";
-
 let mediaRecorder;
 //finción que acutua de forma secuencial para el btn, 
 videoButton.onclick=()=>{
@@ -32,8 +31,11 @@ videoButton.onclick=()=>{
         case 'Entendido':   
             transcripcion="";
             recognition.start();
-            texto.textContent="Esto es una prueba"
-            videoButton.textContent ='Terminar';
+            texto.textContent="Esto es una prueba";
+            setTimeout(function(){
+                videoButton.textContent ='Terminar';
+            }, 6000);
+            videoButton.textContent ='';
             break;
         case 'Terminar':      
             recognition.abort();  
@@ -42,9 +44,13 @@ videoButton.onclick=()=>{
                 videoButton.textContent ='Listo';
                 texto.textContent="A continación se realizará la entrevista vitual. Cuando des click en el botón 'Listo' se comenzará a grabar el video que se toma desde tu dispositivo.La entrvista tiene un tiempo límite de máximo 6 minutos."
             }
-            else {
-                texto.textContent="intente de nuevo por favor"
-                videoButton.textContent ='Probar sonido';
+            else if(transcripcion==""){
+                texto.textContent="intente de nuevo por favor, no se detectó audio"
+                videoButton.textContent ='Entendido';
+            }
+            else{
+                texto.textContent="intente de nuevo por favor, revise el ruido del lugar"
+                videoButton.textContent ='Entendido';
             }
             break;
         case 'Listo':
@@ -163,7 +169,10 @@ try {
     $('.app').hide();
   }
   recognition.onresult = (event) => {
-    console.log("detectando")
+    console.log("detectando");
+    if(videoButton.textContent ==''){
+        videoButton.textContent ='Terminar';
+    }
     var results = event.results;
     var frase=results[results.length-1][0].transcript;
     transcripcion += frase;
@@ -226,3 +235,9 @@ video.addEventListener('play',  () => {
     },900)
 
 })
+//----------timer
+setTimeout(function(){
+
+}, 2000);
+
+console.log("setTimeout() Ejemplo...");
