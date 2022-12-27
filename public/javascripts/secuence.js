@@ -21,32 +21,34 @@ var transcripcion="";
 let mediaRecorder;
 //finción que acutua de forma secuencial para el btn, 
 videoButton.onclick=()=>{
-    console.log(videoButton.textContent);
 
     switch(videoButton.textContent){
         case 'Probar sonido':
-            var vartranscript = "";
-            texto.textContent="A continuación le aparecerán una serie de palabras, por favor leálas en voz alta. Después de click en el botón terminar";
+            //
+            //recognition.start();
+            texto.textContent="A continuación le aparecerá una oración, por favor leala en voz alta. Después de click en el botón terminar";
             videoButton.textContent ='Entendido';
             break;
-        case 'Entendido':    
+        case 'Entendido':   
+            transcripcion="";
             recognition.start();
             texto.textContent="Esto es una prueba"
             videoButton.textContent ='Terminar';
             break;
         case 'Terminar':      
             recognition.abort();  
+            console.log(transcripcion);    
             if(transcripcion=="Esto es una prueba."){
                 videoButton.textContent ='Listo';
-                texto.textContent="Recuerda que la entrevista es una herramienta que nos permite conocerte mejor, así que ponte cómodo y ayudanos respondiendo la preguntas que se te harán a continuación :)"
+                texto.textContent="A continación se realizará la entrevista vitual. Cuando des click en el botón 'Listo' se comenzará a grabar el video que se toma desde tu dispositivo.La entrvista tiene un tiempo límite de máximo 6 minutos."
             }
             else {
                 texto.textContent="intente de nuevo por favor"
                 videoButton.textContent ='Probar sonido';
-                console.log(transcripcion);
             }
             break;
         case 'Listo':
+            transcripcion="";
             videoButton.textContent ='Siguiente';
             texto.style.marginTop="40%";
             texto.textContent=preguntas[0];
@@ -154,7 +156,6 @@ try {
     recognition.lang='es-ES';
     recognition.continuous =true;
     recognition.interimResults = false;
-
   }
   catch(e) {
     console.error(e);
@@ -162,10 +163,10 @@ try {
     $('.app').hide();
   }
   recognition.onresult = (event) => {
-    const results = event.results;
-    const frase=results[results.length-1][0].transcript;
+    console.log("detectando")
+    var results = event.results;
+    var frase=results[results.length-1][0].transcript;
     transcripcion += frase;
-
   }
   //--lectura de texto
   function readTxt(txt){
