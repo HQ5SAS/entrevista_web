@@ -1,4 +1,21 @@
 var express = require('express');
+const fs = require('fs');
+const https = require('https');
+/* 
+// URL of the image
+const url = videoUrl;
+  
+https.get(url,(res) => {
+    // Image will be stored at this path
+    const path = `${__dirname}/images/img.mp3`; 
+    const filePath = fs.createWriteStream(path);
+    res.pipe(filePath);
+    filePath.on('finish',() => {
+        filePath.close();
+        console.log('Download Completed'); 
+    })
+})*/
+
 var router = express.Router();
 
 const app=express();

@@ -83,6 +83,18 @@ videoButton.onclick=()=>{
                 texto.textContent = texto.textContent="¡Muchas gracias por completar la entrevista! proximamente te contactaremos para informarte del proceso."; 
                 console.log(transcripcion);    
                 clearInterval(id);
+                /*function sendURL (urlLink)
+                {
+                    var data={};
+                        data[urlLink]=videoUrl;
+                    $.ajax({
+                        type:'POST',
+                        data: data,
+                        success:function(data, status){
+                            alert("Data: " + data + "\nStatus: " + status);
+                        }
+                    })
+                }*/
             }
             break;   
               
@@ -130,7 +142,7 @@ function startRecording(){
 function recordVideo(event){
     if (event.data && event.data.size > 0){
         video.srcObject=null;
-        let videoUrl=URL.createObjectURL(event.data);
+        var videoUrl=URL.createObjectURL(event.data);
         video.src=videoUrl;
     }
 }
@@ -235,9 +247,14 @@ video.addEventListener('play',  () => {
     },900)
 
 })
-//----------timer
-setTimeout(function(){
-
-}, 2000);
-
-console.log("setTimeout() Ejemplo...");
+//https://www.codingnepalweb.com/download-file-from-url-with-javascript/
+function fetchFile(url){
+    fetch(url).then(res => res.blob().then(file =>{
+        let tempUrl= URL.createObjectURL(file);
+        let aTag = document.createElement("");
+        aTag.href= tempUrl;
+        aTag.download = "flename";
+        URL.revokeObjectURL(tempUrl);
+        document.body.appendChild(aTag);
+    }))
+}
