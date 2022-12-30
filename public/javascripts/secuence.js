@@ -4,6 +4,7 @@ var texto =document.getElementById('pregunta_txt');
 const cronometro = document.getElementById('timer');
 const divVideo= document.getElementById("cotainer_video");
 var alertas =document.getElementById("alertas");
+var videoUrlglobal="";
 
 var preguntas=[
     'Háblame de ti',
@@ -83,18 +84,8 @@ videoButton.onclick=()=>{
                 texto.textContent = texto.textContent="¡Muchas gracias por completar la entrevista! proximamente te contactaremos para informarte del proceso."; 
                 console.log(transcripcion);    
                 clearInterval(id);
-                /*function sendURL (urlLink)
-                {
-                    var data={};
-                        data[urlLink]=videoUrl;
-                    $.ajax({
-                        type:'POST',
-                        data: data,
-                        success:function(data, status){
-                            alert("Data: " + data + "\nStatus: " + status);
-                        }
-                    })
-                }*/
+
+                
             }
             break;   
               
@@ -144,6 +135,16 @@ function recordVideo(event){
         video.srcObject=null;
         var videoUrl=URL.createObjectURL(event.data);
         video.src=videoUrl;
+        fetch('http://localhost:3000/video', {
+                method: 'POST',
+                headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+                body: JSON.stringify({ "url_video": videoUrl })
+            })
+            .then(response => response.json())
+            .then(response => console.log(JSON.stringify(response)))
     }
 }
 function stopRecording(){
@@ -247,14 +248,3 @@ video.addEventListener('play',  () => {
     },900)
 
 })
-//https://www.codingnepalweb.com/download-file-from-url-with-javascript/
-function fetchFile(url){
-    fetch(url).then(res => res.blob().then(file =>{
-        let tempUrl= URL.createObjectURL(file);
-        let aTag = document.createElement("");
-        aTag.href= tempUrl;
-        aTag.download = "flename";
-        URL.revokeObjectURL(tempUrl);
-        document.body.appendChild(aTag);
-    }))
-}
