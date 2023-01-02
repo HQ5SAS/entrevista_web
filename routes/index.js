@@ -21,16 +21,26 @@ router.post('/video', function(req, res) {
   var urlVideo=req.body.url_video;
   const url_=urlVideo.replace('blob:','');
   // URL of the image
-
-  https.get(url_,(res) => {
+/*
+  https.get(url_,function(res){
     // Image will be stored at this path
     const path = 'C:/Users/jnat_/Desktop/video.mp4'; 
+    res.pipe(path);
     const filePath = fs.createWriteStream(path);
     res.pipe(filePath);
-    filePath.on('finish',() => {
+    filePath.on('finish',function() {
         filePath.close();
         console.log('Download Completed'); 
     })
+})*/
+const req = https.get(url_,function(res){
+  const filestream=fs.creatcwritestrem("photo.jpeg");
+  res.pipe(filestream);
+
+  filestream.on("error",function(){
+    filestream.close();
+    console.log("done");
+  })
 })
 //--
   console.log(url_);
