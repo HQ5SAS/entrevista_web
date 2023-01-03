@@ -1,8 +1,12 @@
+const { response } = require("express");
+
+//declaración variables provenienintes del ejs
 const video = document.getElementById('video_');
 const videoButton= document.getElementById('next_bttn');
 var texto =document.getElementById('pregunta_txt');
 const cronometro = document.getElementById('timer');
 const divVideo= document.getElementById("cotainer_video");
+//vars
 var alertas =document.getElementById("alertas");
 var videoUrlglobal="";
 
@@ -19,6 +23,12 @@ var preguntas=[
 var countPreguntas=0;
 var transcripcion="";
 let mediaRecorder;
+//zoho api
+ZOHO.CREATOR.init()
+        .then(function(data) {
+          //Code goes here
+        });
+
 //finción que acutua de forma secuencial para el btn, 
 videoButton.onclick=()=>{
 
@@ -84,6 +94,57 @@ videoButton.onclick=()=>{
                 texto.textContent = texto.textContent="¡Muchas gracias por completar la entrevista! proximamente te contactaremos para informarte del proceso."; 
                 console.log(transcripcion);    
                 clearInterval(id);
+                //zoho appi-------------
+                //zoho report
+                dataZoho = {
+                    "data" : {
+                        "Estado_Postulacion":"entrevista vitual reaizada",
+                        "entrevista_vitual":true    }
+                } 
+                //configuration json
+                //docs https://reqbin.com/code/javascript/wzp2hxwh/javascript-post-request-example
+                fetch('https://accounts.zoho.com/oauth/v2/token?client_id=1000.BXCXYLGQX0TPGT0B4KPR5NKV2RXK2U&grant_type=refresh_token&client_secret=10e319c31847a45291d7b79b5344ea3b8329738a17&refresh_token=1000.6ae69ca138d2f6c5adba08e52b52b4f6.4d09d4c6009923c6d7d36e535f9f37b7', {
+                method: 'POST',
+                headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+            })
+            .then(response => response.json())
+
+
+            const acces_tk= response["access_token"];
+            const a_tk = {
+                'Authorization': 'Zoho-oauthtoken ' + acces_tk
+            }
+            const ID=3960020000012466463;
+            const ID_user= {
+                'criteria': 'ID=="'+ID +'"'
+            }
+            
+            fetch('https://creator.zoho.com/api/v2/hq5colombia/hq5/report/Vista_General11/' +ID, headers=a_tk,
+            data={
+                "Estado_Postulacion":"Entrevista v realizada",
+                "entrevista_vitual":"true"
+            }, {
+            method: 'PUT'
+        })
+        .then(response => response.text())
+        .then(text => console.log(text))
+                /*config = {
+                    appName : "hq5",
+                    reportName : "APLICAR_CONVOCATORIAS_Report",
+                    id: "3960020000012466463",
+                    data : dataZoho
+                    }
+                    //update record API
+                ZOHO.CREATOR.API.updateRecord(config).then(function(response){
+                    //callback block
+                    if(response.code == 3000){
+                        console.log("Record updated successfully");
+                    }
+                });*/
+                //----------------------   
 
                 
             }
@@ -130,7 +191,7 @@ function startRecording(){
     mediaRecorder.ondataavailable = recordVideo;
 }
 
-function recordVideo(event){
+/*function recordVideo(event){
     if (event.data && event.data.size > 0){
         video.srcObject=null;
         var videoUrl=URL.createObjectURL(event.data);
@@ -146,7 +207,8 @@ function recordVideo(event){
             .then(response => response.json())
             .then(response => console.log(JSON.stringify(response)))
     }
-}
+}*/
+ 
 function stopRecording(){
     mediaRecorder.stop();
 }

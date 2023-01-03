@@ -32,7 +32,7 @@ router.post('/video', function(req, res) {
         filePath.close();
         console.log('Download Completed'); 
     })
-})*/
+})
 const req = https.get(url_,function(res){
   const filestream=fs.creatcwritestrem("photo.jpeg");
   res.pipe(filestream);
@@ -41,7 +41,7 @@ const req = https.get(url_,function(res){
     filestream.close();
     console.log("done");
   })
-})
+})*/
 //--
   console.log(url_);
   res.send({urlVideo});
