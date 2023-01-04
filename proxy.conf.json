@@ -1,0 +1,9 @@
+{
+    "/api/*":
+    {
+        "target": "https://accounts.zoho.com/oauth/v2/token?client_id=1000.BXCXYLGQX0TPGT0B4KPR5NKV2RXK2U&grant_type=refresh_token&client_secret=10e319c31847a45291d7b79b5344ea3b8329738a17&refresh_token=1000.6ae69ca138d2f6c5adba08e52b52b4f6.4d09d4c6009923c6d7d36e535f9f37b7",
+        "secure": false,
+        "logLevel": "debug"
+
+    }
+}
