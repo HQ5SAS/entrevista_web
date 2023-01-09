@@ -2,12 +2,45 @@ var express = require('express');
 const fs = require('fs');
 const https = require('https');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 
 
 var router = express.Router();
 
 const app=express();
+//-
+const { spawn } = require("child_process");
+function script_python(content){
+  //Creo subproceso python 
+   pythonProcess = spawn("python", ["./libs_python/zohoAPIpy.py"]);
+  var python_response = "";
+
+  pythonProcess.stdout.on("data", function (data) {
+    python_response += data.toString();
+  });
+
+  pythonProcess.stderr.on('data', function(data){
+    console.error(data.toString());
+  })
+
+  pythonProcess.stdout.on("end", function(){
+      console.log(python_response);
+  });
+
+  pythonProcess.stdin.write(JSON.stringify(content));
+  pythonProcess.stdin.end();
+}
+router.get("/zohoConexion", function(req, res){
+  console.log("solicitud enviada a python");
+  script_python({"key":"contenido"});
+  res.send("solicitud recibida");
+});
+//---
+
+const whiteList =['http://localhost:3000','https://accounts.zoho.com/oauth/v2/token?client_id=1000.BXCXYLGQX0TPGT0B4KPR5NKV2RXK2U&grant_type=refresh_token&client_secret=10e319c31847a45291d7b79b5344ea3b8329738a17&refresh_token=1000.6ae69ca138d2f6c5adba08e52b52b4f6.4d09d4c6009923c6d7d36e535f9f37b7']
+app.use(cors({origin:whiteList}));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 

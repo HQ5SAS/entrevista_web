@@ -102,7 +102,6 @@ videoButton.onclick=()=>{
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
                 },
-                mode: 'no-cors'
             })
             .then(response => response.json());
             console.log(response);
@@ -122,7 +121,6 @@ videoButton.onclick=()=>{
                 "entrevista_vitual":"true"
             }, {
             method: 'PUT',
-            mode: 'no-cors'
         })
         .then(responsePut => responsePut.text())
         .then(text => console.log(text))
