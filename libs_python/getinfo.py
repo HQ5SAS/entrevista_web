@@ -40,22 +40,7 @@ def zoho_api():
         elif (c_code == 3000):
             c_data = c_js['data']
             for reporte in c_data:
-                print(reporte['NOMBRES_Y_APELLIDOS']['display_value'], '|| REQUISICIÓN:',
-                    reporte['REQUISICION_RELATED']['display_value'], '|| # CONTRATO:', reporte['N_mero_de_Contrato'],
-                    'ID:', reporte['ID'])
-
-        # Editar registro
-
-        data_ = '{"data":{"N_mero_de_Contrato":"123"}}'
-        e_js = requests.patch(
-            'https://creator.zoho.com/api/v2/hq5colombia/hq5/report/Vista_General11/' + str(reporte['ID']), headers=a_tk,
-            data=data_)
-        e_js = json.loads(e_js.text)
-        e_code = e_js['code']
-        if (e_code == 3000):
-            print('Actualizado con éxito')
-        else:
-            print('ERROR:', e_js['message'])
+                print('REQUISICIÓN:', reporte['REQUISICION_RELATED']['display_value'])
 
 
 zoho_api()

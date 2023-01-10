@@ -23,7 +23,6 @@ def zoho_api():
         a_tk = {
             'Authorization': 'Zoho-oauthtoken ' + acces_tk
         }
-        # 'ID==3960020000012096751'
         c_param = {
             'criteria': 'ID=="'+id_user+'"'
         }
@@ -35,18 +34,10 @@ def zoho_api():
         c_code = c_js['code']
         if (c_code == 3330):
             print('ERROR:', c_code['message'])
-        elif (c_code == 3100):
-            print('Reporte no existente')
-        elif (c_code == 3000):
-            c_data = c_js['data']
-            for reporte in c_data:
-                print(reporte['NOMBRES_Y_APELLIDOS']['display_value'], '|| REQUISICIÓN:',
-                    reporte['REQUISICION_RELATED']['display_value'], '|| # CONTRATO:', reporte['N_mero_de_Contrato'],
-                    'ID:', reporte['ID'])
 
         # Editar registro
 
-        data_ = '{"data":{"N_mero_de_Contrato":"123"}}'
+        data_ = '{"data":{"entrevista_virtual":"true", "Estado_Postulacion":"entrevista virtual realizada"}}'
         e_js = requests.patch(
             'https://creator.zoho.com/api/v2/hq5colombia/hq5/report/Vista_General11/' + str(reporte['ID']), headers=a_tk,
             data=data_)
