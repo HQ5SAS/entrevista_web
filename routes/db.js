@@ -7,13 +7,9 @@ var con = mysql.createConnection({
     port: "25060",
     database: "defaultdb"
 });
-  
+
 con.connect(function(err) {
     if (err) throw err;
     console.log("Connected!");
 });
 
-var sql = "UPDATE `defaultdb`.`new_table` SET `ID` = '3' WHERE (`ID` = '4');";
-con.query(sql, function (err, result) {
-    if (err) throw err;    console.log("Table created");
-});

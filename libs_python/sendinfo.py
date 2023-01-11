@@ -3,8 +3,9 @@ import json
 import requests
 
 comando = sys.stdin.readline()
-x = json.loads(comando)
-id_user= '3960020000016631899'
+json_input = json.loads(comando)
+id_user = json_input[id]
+#id_user= '3960020000016631899'id pruebas
 
 def zoho_api():
     # Obtener acces token
@@ -39,7 +40,7 @@ def zoho_api():
 
         data_ = '{"data":{"entrevista_virtual":"true", "Estado_Postulacion":"entrevista virtual realizada"}}'
         e_js = requests.patch(
-            'https://creator.zoho.com/api/v2/hq5colombia/hq5/report/Vista_General11/' + str(reporte['ID']), headers=a_tk,
+            'https://creator.zoho.com/api/v2/hq5colombia/hq5/report/Vista_General11/' + id_user, headers=a_tk,
             data=data_)
         e_js = json.loads(e_js.text)
         e_code = e_js['code']

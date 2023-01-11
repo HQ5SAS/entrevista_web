@@ -22,7 +22,7 @@ var countPreguntas=0;
 var transcripcion="";
 let mediaRecorder;
 
-//finción que acutua de forma secuencial para el btn, 
+//función que acutua de forma secuencial para el btn, 
 videoButton.onclick=()=>{
 
     switch(videoButton.textContent){
@@ -87,43 +87,6 @@ videoButton.onclick=()=>{
                 texto.textContent = texto.textContent="¡Muchas gracias por completar la entrevista! proximamente te contactaremos para informarte del proceso."; 
                 console.log(transcripcion);    
                 clearInterval(id);
-                //zoho appi-------------
-                //zoho report
-                 /*dataZoho = {
-                    "data" : {
-                        "Estado_Postulacion":"entrevista vitual reaizada",
-                        "entrevista_vitual":true    }
-                } */
-                //configuration json
-                //docs https://reqbin.com/code/javascript/wzp2hxwh/javascript-post-request-example
-                fetch('https://accounts.zoho.com/oauth/v2/token?client_id=1000.BXCXYLGQX0TPGT0B4KPR5NKV2RXK2U&grant_type=refresh_token&client_secret=10e319c31847a45291d7b79b5344ea3b8329738a17&refresh_token=1000.6ae69ca138d2f6c5adba08e52b52b4f6.4d09d4c6009923c6d7d36e535f9f37b7', {
-                method: 'POST',
-                headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-                },
-            })
-            .then(response => response.json());
-            console.log(response);
-
-            const acces_tk= response["access_token"];
-            const a_tk = {
-                'Authorization': 'Zoho-oauthtoken ' + acces_tk
-            }
-            const ID_load=3960020000012466463;
-            const ID_user= {
-                'criteria': 'ID=="'+ID_load +'"'
-            }
-            
-            fetch('https://creator.zoho.com/api/v2/hq5colombia/hq5/report/Vista_General11/' +ID_user, headers=a_tk,
-            data={
-                "Estado_Postulacion":"Entrevista v realizada",
-                "entrevista_vitual":"true"
-            }, {
-            method: 'PUT',
-        })
-        .then(responsePut => responsePut.text())
-        .then(text => console.log(text))
             }
             break;   
               
@@ -179,7 +142,7 @@ function recordVideo(event){
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-                body: JSON.stringify({ "url_video": videoUrl })
+                body: JSON.stringify({ "url_video": videoUrl, "transcripcion": transcripcion, "tiempo": cronometro})
             })
             .then(response => response.json())
             .then(response => console.log(JSON.stringify(response)))

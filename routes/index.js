@@ -19,7 +19,7 @@ const host = 'http://localhost:3000';
 const { spawn } = require("child_process");
 //-- funciones 
 function script_python(content){
-  //Creo subproceso python 
+  //subproceso python 
    pythonProcess = spawn("python", ["./libs_python/zohoAPIpy.py"]);
   var python_response = "";
 
@@ -38,13 +38,7 @@ function script_python(content){
   pythonProcess.stdin.write(JSON.stringify(content));
   pythonProcess.stdin.end();
 }
-router.get("/zohoConexion", function(req, res){
-  console.log("solicitud enviada a python");
-  script_python({"key":"contenido"});
-  res.send("solicitud recibida");
-});
-
-//--+
+//------
 router.get('/', function(req, res, next) {
   //titulo en pestaña 
   res.render('index', { title: 'Consejos' });
@@ -54,37 +48,51 @@ router.get('/', function(req, res, next) {
 
   console.log('requi:'+ requi+'id:'+ID_user);
 });
-
- //
-
-//---
-
-/*const whiteList =[host,'https://accounts.zoho.com/oauth/v2/token?client_id=1000.BXCXYLGQX0TPGT0B4KPR5NKV2RXK2U&grant_type=refresh_token&client_secret=10e319c31847a45291d7b79b5344ea3b8329738a17&refresh_token=1000.6ae69ca138d2f6c5adba08e52b52b4f6.4d09d4c6009923c6d7d36e535f9f37b7']
-app.use(cors({origin:whiteList}));*/
-
-
-/* GET home page.
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-}); */
+//---busqueda registro para función sen info (cambia registro de zoho)
+router.get("/zohoConexion", function(req, res){
+  console.log("solicitud enviada a python");
+  script_python({"key":"contenido", "id": ID_user});
+  res.send("solicitud recibida");
+});
+//---finalizar entrevista
 //--video
 router.post('/video', function(req, res) {
   var urlVideo=req.body.url_video;
+  var respuestas =req.body.transcripcion;
+  var duracion=req.body.tiempo;
   const url_=urlVideo.replace('blob:','');
-  // URL of the image
-/*
+  // URL of the video
+  var fecha=new Date();
+    var dia = fecha.getDate();
+    var mes =fecha.getMonth();
+    var anio=fecha.getFullYear();
+    var hora= addZero(fecha.getHours());
+    var minutos=addZero(fecha.getMinutes());
+    var segundos=addZero(fecha.getSeconds());
+
+    var fechaFinEntrevista= `${dia}/${mes}/${anio}T${hora}:${minutos}:${segundos}`;
+    console.log(fechaFinEntrevista);
+    var sql = "INSERT INTO `defaultdb`.`entrevistas` (`respuestas`, `duracion_entrevista`, `fecha_entrevista`, `aplicar_convocatorias_id`) VALUES ('"+respuestas + "', '"+ duracion+ "', '"+fechaFinEntrevista + "', '"+ ID_user+ "');";
+    con.query(sql, function (err, result) {
+    if (err) throw err; 
+       
+    console.log("succesfull"+sql);
+});
   https.get(url_,function(res){
-    // Image will be stored at this path
-    const path = 'C:/Users/jnat_/Desktop/video.mp4'; 
+    // Video will be stored at this path
+   /* const path = 'C:/Users/jnat_/Desktop/video.mp4'; 
     res.pipe(path);
     const filePath = fs.createWriteStream(path);
     res.pipe(filePath);
     filePath.on('finish',function() {
         filePath.close();
         console.log('Download Completed'); 
-    })
+    })*/
+
+    //------enviar informacoón a SQL
+    
 })
-const req = https.get(url_,function(res){
+/*const req = https.get(url_,function(res){
   const filestream=fs.creatcwritestrem("photo.jpeg");
   res.pipe(filestream);
 
@@ -92,10 +100,10 @@ const req = https.get(url_,function(res){
     filestream.close();
     console.log("done");
   })
-})*/
+})
 //--
   console.log(url_);
-  res.send({urlVideo});
+  res.send({urlVideo});*/
   
 });
 
