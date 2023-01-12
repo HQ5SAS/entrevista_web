@@ -142,10 +142,10 @@ function recordVideo(event){
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-                body: JSON.stringify({ "url_video": videoUrl, "transcripcion": transcripcion, "tiempo": cronometro})
+                body: JSON.stringify({ "url_video": videoUrl, "transcripcion": transcripcion, "tiempo": "cronometro"})
             })
-            .then(response => response.json())
-            .then(response => console.log(JSON.stringify(response)))
+           .then(response => response.json())
+           .then(response => console.log(JSON.stringify(response)))
     }
 }
  
