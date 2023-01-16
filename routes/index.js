@@ -2,7 +2,7 @@ var express = require('express');
 const fs = require('fs');
 const https = require('https');
 const bodyParser = require('body-parser');
-const { con } = require("./db");
+const { exportsDB } = require("./db");
 //const cors = require('cors');
 const router = express.Router();
 const app=express();
@@ -14,6 +14,7 @@ app.use(express.static("public"));
 const host = 'http://localhost:3000';
 //var ID_user ="3960020000016631899";
 var requi = "1234";
+con= exportsDB();
 
 //-
 const { spawn } = require("child_process");
@@ -97,14 +98,17 @@ router.post('/video', function(req, res) {
 
   var fechaFinEntrevista= `${dia}/${mes}/${anio}T${hora}:${minutos}:${segundos}`;
   console.log(fechaFinEntrevista);
-  var sql = "INSERT INTO `defaultdb`.`entrevistas` (`respuestas`, `duracion_entrevista`, `fecha_entrevista`, `aplicar_convocatorias_id`) VALUES ('"+respuestas + "', '"+ duracion+ "', '"+fechaFinEntrevista + "', '"+ ID_user+ "');";
   try{
-    con.query(sql, function (err, result) {
+  var sql = "INSERT INTO `defaultdb`.`entrevistas` (`respuestas`, `duracion_entrevista`, `fecha_entrevista`, `aplicar_convocatorias_id`) VALUES ('"+respuestas + "', '"+ duracion+ "', '"+fechaFinEntrevista + "', '"+ ID_user+ "');";
+  console.log(sql);
+
+    this.con.query(sql, function (err, result) {
       if (err) throw err; 
       console.log("succesfull"+sql);
-      con.commit();
-      resSQL="succesfull -----"+sql;
-    }); 
+      
+    });
+    this.con.commit();
+      resSQL="succesfull "+sql; 
   }
   catch (error){
     resSQL =error + " //// -------"+sql+"-----------";

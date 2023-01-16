@@ -38,7 +38,7 @@ def zoho_api():
 
         # Editar registro
 
-        data_ = '{"data":{"entrevista_virtual":"true", "Estado_Postulacion":"entrevista virtual realizada"}}'
+        data_ = '{"data":{"entrevista_virtual":"true", "Estado_Postulacion":"Entrevista virtual realizada"}}'
         e_js = requests.patch(
             'https://creator.zoho.com/api/v2/hq5colombia/hq5/report/Vista_General11/' + id_user, headers=a_tk,
             data=data_)
