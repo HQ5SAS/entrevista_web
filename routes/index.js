@@ -2,7 +2,7 @@ var express = require('express');
 const fs = require('fs');
 const https = require('https');
 const bodyParser = require('body-parser');
-const { con } = require("./db")
+const { con } = require("./db");
 //const cors = require('cors');
 const router = express.Router();
 const app=express();
@@ -12,7 +12,7 @@ const app=express();
 app.use(express.static("public"));
 
 const host = 'http://localhost:3000';
-var ID_user ="3960020000016631899";
+//var ID_user ="3960020000016631899";
 var requi = "1234";
 
 //-
@@ -102,12 +102,12 @@ router.post('/video', function(req, res) {
     con.query(sql, function (err, result) {
       if (err) throw err; 
       console.log("succesfull"+sql);
-    });
-    con.commit();
-    resSQL="succesfull "+sql;
+      con.commit();
+      resSQL="succesfull -----"+sql;
+    }); 
   }
   catch (error){
-    resSQL =error + " /////"+sql;
+    resSQL =error + " //// -------"+sql+"-----------";
   }
   
   //envio de info a zoho

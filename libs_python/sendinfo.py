@@ -4,7 +4,7 @@ import requests
 
 comando = sys.stdin.readline()
 json_input = json.loads(comando)
-id_user = json_input[id]
+id_user = json_input["id"]
 #id_user= '3960020000016631899'id pruebas
 
 def zoho_api():
@@ -25,7 +25,7 @@ def zoho_api():
             'Authorization': 'Zoho-oauthtoken ' + acces_tk
         }
         c_param = {
-            'criteria': 'ID=="'+id_user+'"'
+            'criteria': 'ID=='+id_user
         }
         # ,params = param
         c_js = requests.get('https://creator.zoho.com/api/v2/hq5colombia/hq5/report/Vista_General11', headers=a_tk,
@@ -34,7 +34,7 @@ def zoho_api():
         # print(c_js)
         c_code = c_js['code']
         if (c_code == 3330):
-            print('ERROR:', c_code['message'])
+            print('ERROR:', c_js['message'])
 
         # Editar registro
 
