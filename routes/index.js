@@ -9,7 +9,7 @@ const app=express();
 // app.use(bodyParser.json());
 // app.use(bodyParser.urlencoded({extended: false}));
 
-app.use(express.static("public"));
+app.use(express.static("./public"));
 
 const host = 'http://localhost:3000';
 //var ID_user ="3960020000016631899";

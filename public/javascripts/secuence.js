@@ -13,7 +13,6 @@ var preguntas=[
     '¿Qué te gusta hacer en tu tiempo libre?',
     '¿Por qué te interesa el puesto?',
     '¿Por qué dejaste tu anterior empleo? ¿Por qué quieres cambiar de empleo?',
-    'Cuéntame de algún momento de tu vida laboral en el que hayas cometido un error, ¿cómo lo solucionaste?',
     '¿Cuál es tu mayor virtud o habilidad?',
     '¿Cuál es tu mayor debilidad o defecto?',
     '¿Por qué deberíamos contratarte?'
@@ -37,7 +36,9 @@ videoButton.onclick=()=>{
             recognition.start();
             texto.textContent="Esto es una prueba";
             setTimeout(function(){
-                videoButton.textContent ='Terminar';
+                if(videoButton.textContent ==''){
+                    videoButton.textContent ='Terminar';
+                }
             }, 6000);
             videoButton.textContent ='';
             break;

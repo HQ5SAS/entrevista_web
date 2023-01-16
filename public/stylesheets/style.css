@@ -39,3 +39,11 @@
   font-family: 'Montserrat', sans-serif;
   font-size: 1.8vw;
 }
+/* Style all font awesome icons */
+.icons {
+  padding: 20px;
+  width: 80px;
+  text-align: center;
+}
+
+
