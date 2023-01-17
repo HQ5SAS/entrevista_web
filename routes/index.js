@@ -1,3 +1,4 @@
+var XMLHttpRequest = require('xhr2');
 var express = require('express');
 const fs = require('fs');
 const https = require('https');
@@ -100,7 +101,6 @@ router.post('/video', function(req, res) {
   console.log(fechaFinEntrevista);
   try{
   var sql = "INSERT INTO `defaultdb`.`entrevistas` (`respuestas`, `duracion_entrevista`, `fecha_entrevista`, `aplicar_convocatorias_id`) VALUES ('"+respuestas + "', '"+ duracion+ "', '"+fechaFinEntrevista + "', '"+ ID_user+ "');";
-  console.log(sql);
 
     this.con.query(sql, function (err, result) {
       if (err) throw err; 
@@ -124,29 +124,27 @@ router.post('/video', function(req, res) {
   }
   
 
-  /* https.get(url_,function(res){
-    // Video will be stored at this path
-   const path = 'C:/Users/jnat_/Desktop/video.mp4'; 
-    res.pipe(path);
-    const filePath = fs.createWriteStream(path);
-    res.pipe(filePath);
-    filePath.on('finish',function() {
-        filePath.close();
-        console.log('Download Completed'); 
-    })
+//get videoo-----------------------------
 
-    //------enviar informacoón a SQL
-    
-  })*/
-/*const req = https.get(url_,function(res){
-  const filestream=fs.creatcwritestrem("photo.jpeg");
-  res.pipe(filestream);
+var xhr = new XMLHttpRequest();
+  xhr.responseType = 'blob';
 
-  filestream.on("error",function(){
-    filestream.close();
-    console.log("done");
-  })
-})*/
+  xhr.onload = function() {
+  var recoveredBlob = xhr.response;
+
+  var reader = new FileReader;
+
+  reader.onload = function() {
+      var blobAsDataUrl = reader.result;
+      console.log(blobAsDataUrl);
+  };
+
+  reader.readAsDataURL(recoveredBlob);
+  };
+
+//  xhr.open('GET', urlVideo);
+//  xhr.send();
+//------------------------------------
 //--;
   console.log(url_);
   res.send({"key":urlVideo, "resSQL":resSQL, "resZoho":resZoho});

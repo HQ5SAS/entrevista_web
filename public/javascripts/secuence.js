@@ -7,7 +7,9 @@ const divVideo= document.getElementById("cotainer_video");
 //vars
 var alertas =document.getElementById("alertas");
 var videoUrlglobal="";
-
+var sAux ="0";
+var mAux ="0";
+var tiempoFin="0";
 var preguntas=[
     'Háblame de ti',
     '¿Qué te gusta hacer en tu tiempo libre?',
@@ -29,7 +31,7 @@ videoButton.onclick=()=>{
             //
             //recognition.start();
             texto.textContent="A continuación le aparecerá una oración, por favor leala en voz alta. Después de click en el botón terminar";
-            videoButton.textContent ='Entendido';
+            videoButton.textContent ='Listo';
             break;
         case 'Entendido':   
             transcripcion="";
@@ -87,6 +89,7 @@ videoButton.onclick=()=>{
                 texto.style.fontSize= "150%"
                 texto.textContent = texto.textContent="¡Muchas gracias por completar la entrevista! proximamente te contactaremos para informarte del proceso."; 
                 console.log(transcripcion);    
+                pararCrono();
                 clearInterval(id);
             }
             break;   
@@ -143,7 +146,7 @@ function recordVideo(event){
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-                body: JSON.stringify({ "url_video": videoUrl, "transcripcion": transcripcion, "tiempo": "32"})
+                body: JSON.stringify({ "url_video": videoUrl, "transcripcion": transcripcion, "tiempo": tiempoFin})
             })
            .then(response => response.json())
            .then(response => console.log(JSON.stringify(response)))
@@ -167,7 +170,12 @@ function escribir(){
     if (m<10){mAux="0"+m;}else{mAux=m;}
 
     cronometro.innerHTML = mAux + ":" + sAux; 
+    tiempoFin=mAux + "." + sAux;
  } 
+ function pararCrono(){
+    clearInterval(id);
+}
+
 //
 init();
 //------section transcripcion video
@@ -204,7 +212,6 @@ try {
 
   }
   //----deteccion de rostro
-// Cargar Modelos
 // Cargar Modelos
 Promise.all([
     faceapi.nets.ssdMobilenetv1.loadFromUri('./javascripts/models'),
