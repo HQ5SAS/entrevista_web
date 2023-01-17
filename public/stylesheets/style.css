@@ -46,4 +46,11 @@
   text-align: center;
 }
 
-
+.helv{
+  font-family:helvetica
+}
+.logoLeft {
+  
+  width: 80px;
+  text-align: left;
+}
