@@ -1,6 +1,7 @@
-var XMLHttpRequest = require('xhr2');
+const {downloadFile} =require("./exportVideo");
 var express = require('express');
 const fs = require('fs');
+const http = require('http');
 const https = require('https');
 const bodyParser = require('body-parser');
 const { exportsDB } = require("./db");
@@ -22,7 +23,7 @@ const { spawn } = require("child_process");
 //-- funciones 
 //get id info
 function python_getInfo(content){
-  //subproceso python 
+  //subproceso python fn
    pythonProcess = spawn("python", ["./libs_python/getinfo.py"]);
   var python_response = "";
 
@@ -41,7 +42,7 @@ function python_getInfo(content){
   pythonProcess.stdin.write(JSON.stringify(content));
   pythonProcess.stdin.end();
 }
-//---send info zoho
+//---send info zoho fn
 function python_sendInfo(content){
   //subproceso python 
    pythonProcess = spawn("python", ["./libs_python/sendinfo.py"]);
@@ -62,7 +63,7 @@ function python_sendInfo(content){
   pythonProcess.stdin.write(JSON.stringify(content));
   pythonProcess.stdin.end();
 }
-//------
+//------pagina principal
 router.get('/', function(req, res, next) {
   //titulo en pestaña 
   res.render('index', { title: 'Consejos' });
@@ -84,6 +85,7 @@ router.get("/zoho/get", function(req, res){
 router.post('/video', function(req, res) {
   var resSQL="";
   var resZoho="";
+  var resVideo="";
   var urlVideo=req.body.url_video;
   var respuestas =req.body.transcripcion;
   var duracion=req.body.tiempo;
@@ -111,10 +113,10 @@ router.post('/video', function(req, res) {
       resSQL="succesfull "+sql; 
   }
   catch (error){
-    resSQL =error + " //// -------"+sql+"-----------";
+    resSQL =error + " error query:("+sql+")";
   }
   
-  //envio de info a zoho
+  //envío de info a zoho
   try{
     python_sendInfo({"key":"contenido", "id": ID_user});
     resZoho= "info actualizada zoho"
@@ -126,28 +128,10 @@ router.post('/video', function(req, res) {
 
 //get videoo-----------------------------
 
-var xhr = new XMLHttpRequest();
-  xhr.responseType = 'blob';
-
-  xhr.onload = function() {
-  var recoveredBlob = xhr.response;
-
-  var reader = new FileReader;
-
-  reader.onload = function() {
-      var blobAsDataUrl = reader.result;
-      console.log(blobAsDataUrl);
-  };
-
-  reader.readAsDataURL(recoveredBlob);
-  };
-
-//  xhr.open('GET', urlVideo);
-//  xhr.send();
 //------------------------------------
 //--;
   console.log(url_);
-  res.send({"key":urlVideo, "resSQL":resSQL, "resZoho":resZoho});
+  res.send({"key":urlVideo, "resSQL":resSQL, "resZoho":resZoho, "resVideo":resVideo});
   
 });
 

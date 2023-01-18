@@ -150,6 +150,24 @@ function recordVideo(event){
             })
            .then(response => response.json())
            .then(response => console.log(JSON.stringify(response)))
+
+           try{
+  
+            const file = fs.createWriteStream( "C:/Users/CO-166/Desktop/entrevista_"+ID_user+".webm");
+            const request = http.get(videoUrl, function(response) {
+              response.pipe(file);
+        
+           // after download completed close filestream
+              file.on("finish", () => {
+              file.close();
+              console.log("Download Completed");
+           });
+        });
+            }
+        
+        catch(error) {
+          resVideo = error;
+        }
     }
 }
  
