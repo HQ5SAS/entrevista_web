@@ -140,34 +140,38 @@ function recordVideo(event){
         video.srcObject=null;
         var videoUrl=URL.createObjectURL(event.data);
         video.src=videoUrl;
+        const url_=videoUrl.replace('blob:','');
+        //to base 64 video
+        var base64data ="amarillo";
+        try{
+  
+            const videoBlob = await fetch(url).then((e) => e.blob())
+
+            var reader = new FileReader();
+            reader.readAsDataURL(videoBlob); 
+            reader.onloadend = function() {
+            this.base64data = reader.result;                
+            console.log(base64data);
+            }
+
+            }
+        
+        catch(error) {
+          resVideo = error;
+        }
+        console.log(resVideo);
         fetch('http://localhost:3000/video', {
                 method: 'POST',
                 headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-                body: JSON.stringify({ "url_video": videoUrl, "transcripcion": transcripcion, "tiempo": tiempoFin})
+                body: JSON.stringify({ "url_video": base64data, "transcripcion": transcripcion, "tiempo": tiempoFin})
             })
            .then(response => response.json())
            .then(response => console.log(JSON.stringify(response)))
 
-           try{
-  
-            const file = fs.createWriteStream( "C:/Users/CO-166/Desktop/entrevista_"+ID_user+".webm");
-            const request = http.get(videoUrl, function(response) {
-              response.pipe(file);
-        
-           // after download completed close filestream
-              file.on("finish", () => {
-              file.close();
-              console.log("Download Completed");
-           });
-        });
-            }
-        
-        catch(error) {
-          resVideo = error;
-        }
+           
     }
 }
  

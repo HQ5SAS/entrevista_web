@@ -89,7 +89,7 @@ router.post('/video', function(req, res) {
   var urlVideo=req.body.url_video;
   var respuestas =req.body.transcripcion;
   var duracion=req.body.tiempo;
-  const url_=urlVideo.replace('blob:','');
+  
   // URL of the video
   var fecha=new Date();
   var dia = fecha.getDate();
@@ -130,7 +130,7 @@ router.post('/video', function(req, res) {
 
 //------------------------------------
 //--;
-  console.log(url_);
+  //console.log(url_);
   res.send({"key":urlVideo, "resSQL":resSQL, "resZoho":resZoho, "resVideo":resVideo});
   
 });
