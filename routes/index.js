@@ -12,6 +12,14 @@ const app=express();
 // app.use(bodyParser.urlencoded({extended: false}));
 
 app.use(express.static("./public"));
+router.use(bodyParser.json({limit: '500mb'}));
+router.use(bodyParser.urlencoded({limit: '500mb', extended: true}));
+router.use(express.urlencoded({ extended: true }));
+
+app.use(bodyParser.json({limit: '500mb'}));
+app.use(bodyParser.urlencoded({limit: '500mb', extended: true}));
+app.use(express.urlencoded({ extended: true }));
+
 
 const host = 'http://localhost:3000';
 //var ID_user ="3960020000016631899";
@@ -83,6 +91,7 @@ router.get("/zoho/get", function(req, res){
 //---finalizar entrevista
 //--video
 router.post('/video', function(req, res) {
+  
   var resSQL="";
   var resZoho="";
   var resVideo="";

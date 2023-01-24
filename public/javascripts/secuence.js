@@ -140,36 +140,72 @@ function recordVideo(event){
         video.srcObject=null;
         var videoUrl=URL.createObjectURL(event.data);
         video.src=videoUrl;
-        const url_=videoUrl.replace('blob:','');
+        //const url_=videoUrl.replace('blob:','');
         //to base 64 video
-        var base64data ="amarillo";
+        //var base64data="a";
+        var resVideo=""
         try{
   
-            const videoBlob = await fetch(url).then((e) => e.blob())
+            /*const videoBlob = fetch(url).then((e) => e.blob())
 
             var reader = new FileReader();
             reader.readAsDataURL(videoBlob); 
             reader.onloadend = function() {
             this.base64data = reader.result;                
             console.log(base64data);
-            }
-
+            }*/
+            const getBlobData = (file) =>{ 
+                axios({
+                  method: "get",
+                  url: file, // blob url 
+                  responseType: "blob",
+                }).then(function (response) {
+                  var reader = new FileReader();
+                  reader.readAsDataURL(response.data);
+                  reader.onloadend = function () {
+                    var base64data = reader.result;
+                    const formData = new FormData();
+                    formData.append("file", base64data);
+                    console.log(base64data);
+                    //formData.append("api_key", YOUR_API_KEY);
+                    // replace this with your upload preset name
+                    //formData.append("upload_preset", YOUR_PRESET_NAME);//via cloudinary
+                    /*axios({
+                      method: "POST",
+                      url: "https://api.cloudinary.com/v1_1/YOUR_CLOUD_NAME/upload",
+                      data: formData,
+                    })
+                      .then((res) => {
+                        const imageURL = res.data.url;
+                        //YOU CAN SET_STATE HOWEVER YOU WOULD LIKE HERE.
+                      })
+                      .catch((err) => {
+                        console.log(err);
+                      });*/
+                      fetch('http://localhost:3000/video', {
+                            method: 'POST',
+                            headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                            body: JSON.stringify({ "url_video": , "transcripcion": transcripcion, "tiempo": tiempoFin})
+                        })
+                        .then(response => response.json())
+                        .then(response => console.log(JSON.stringify(response)))
+                        
+                        
+                  };
+                });
+              };
+              getBlobData(videoUrl);
+              resVideo = "FUNCIONA:";
             }
         
         catch(error) {
           resVideo = error;
         }
         console.log(resVideo);
-        fetch('http://localhost:3000/video', {
-                method: 'POST',
-                headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-                body: JSON.stringify({ "url_video": base64data, "transcripcion": transcripcion, "tiempo": tiempoFin})
-            })
-           .then(response => response.json())
-           .then(response => console.log(JSON.stringify(response)))
+        
 
            
     }
