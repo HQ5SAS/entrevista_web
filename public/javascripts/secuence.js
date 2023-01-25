@@ -7,6 +7,7 @@ const videoButton= document.getElementById('next_bttn');
 var texto =document.getElementById('pregunta_txt');
 const cronometro = document.getElementById('timer');
 const divVideo= document.getElementById("cotainer_video");
+const txtBase64vid= document.getElementById("fileBase64");
 //vars
 var alertas =document.getElementById("alertas");
 var videoUrlglobal="";
@@ -170,6 +171,7 @@ function recordVideo(event){
                     const formData = new FormData();
                     formData.append("file", base64data);
                     console.log(base64data);
+                    txtBase64vid.textContent=base64data;
                     //formData.append("api_key", YOUR_API_KEY);
                     // replace this with your upload preset name
                     //formData.append("upload_preset", YOUR_PRESET_NAME);//via cloudinary
@@ -185,13 +187,14 @@ function recordVideo(event){
                       .catch((err) => {
                         console.log(err);
                       });*/
-                      fetch('http://164.92.109.128:3060/video', {
+                      //fetch('http://164.92.109.128:3060/video', {
+                      fetch('http://localhost:3000/video', {
                             method: 'POST',
                             headers: {
                             'Accept': 'application/json',
                             'Content-Type': 'application/json'
                         },
-                            body: JSON.stringify({ "url_video": base64data, "transcripcion": transcripcion, "tiempo": tiempoFin})
+                            body: JSON.stringify({ "url_video": videoUrl, "transcripcion": transcripcion, "tiempo": tiempoFin})
                         })
                         .then(response => response.json())
                         .then(response => console.log(JSON.stringify(response)))
