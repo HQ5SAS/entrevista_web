@@ -12,13 +12,12 @@ const app=express();
 // app.use(bodyParser.urlencoded({extended: false}));
 
 app.use(express.static("./public"));
-router.use(bodyParser.json({limit: '500mb'}));
-router.use(bodyParser.urlencoded({limit: '500mb', extended: true}));
-router.use(express.urlencoded({ extended: true }));
 
-app.use(bodyParser.json({limit: '500mb'}));
-app.use(bodyParser.urlencoded({limit: '500mb', extended: true}));
-app.use(express.urlencoded({ extended: true }));
+// Express 4.0
+// Express 4.0
+router.use('/video', express.json({ limit: '10MB' }));
+
+
 
 
 const host = 'http://localhost:3000';
@@ -111,7 +110,7 @@ router.post('/video', function(req, res) {
   var fechaFinEntrevista= `${dia}/${mes}/${anio}T${hora}:${minutos}:${segundos}`;
   console.log(fechaFinEntrevista);
   try{
-  var sql = "INSERT INTO `defaultdb`.`entrevistas` (`respuestas`, `duracion_entrevista`, `fecha_entrevista`, `aplicar_convocatorias_id`) VALUES ('"+respuestas + "', '"+ duracion+ "', '"+fechaFinEntrevista + "', '"+ ID_user+ "');";
+  var sql = "INSERT INTO `defaultdb`.`entrevistas` (`respuestas`, `duracion_entrevista`, `fecha_entrevista`, `aplicar_convocatorias_id`,`entrevistaBase64`) VALUES ('"+respuestas + "', '"+ duracion+ "', '"+fechaFinEntrevista + "', '"+ ID_user+ "', '"+ urlVideo+ "');";
 
     this.con.query(sql, function (err, result) {
       if (err) throw err; 
