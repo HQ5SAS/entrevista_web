@@ -1,3 +1,6 @@
+
+
+
 //declaración variables provenienintes del ejs
 const video = document.getElementById('video_');
 const videoButton= document.getElementById('next_bttn');
@@ -31,7 +34,7 @@ videoButton.onclick=()=>{
             //
             //recognition.start();
             texto.textContent="A continuación le aparecerá una oración, por favor leala en voz alta. Después de click en el botón terminar";
-            videoButton.textContent ='Listo';
+            videoButton.textContent ='Entendido';
             break;
         case 'Entendido':   
             transcripcion="";
@@ -188,17 +191,16 @@ function recordVideo(event){
                             'Accept': 'application/json',
                             'Content-Type': 'application/json'
                         },
-                            body: JSON.stringify({ "url_video": , "transcripcion": transcripcion, "tiempo": tiempoFin})
+                            body: JSON.stringify({ "url_video": base64data, "transcripcion": transcripcion, "tiempo": tiempoFin})
                         })
                         .then(response => response.json())
                         .then(response => console.log(JSON.stringify(response)))
-                        
                         
                   };
                 });
               };
               getBlobData(videoUrl);
-              resVideo = "FUNCIONA:";
+              resVideo = "FUNCIONA";
             }
         
         catch(error) {
