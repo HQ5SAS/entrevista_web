@@ -185,7 +185,7 @@ function recordVideo(event){
                       .catch((err) => {
                         console.log(err);
                       });*/
-                      fetch('http://localhost:3000/video', {
+                      fetch('http://164.92.109.128:3060/video', {
                             method: 'POST',
                             headers: {
                             'Accept': 'application/json',
