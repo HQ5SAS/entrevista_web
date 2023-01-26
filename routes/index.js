@@ -20,7 +20,7 @@ router.use('/video', express.json({ limit: '10MB' }));
 
 
 //const host = 'http://164.92.109.128:3060/';
-const host = 'http://localhost:3000';
+const host = 'entrevistas.gestionhq5.com.co';
 //var ID_user ="3960020000016631899";
 var requi = "1234";
 con= exportsDB();

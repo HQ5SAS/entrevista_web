@@ -188,13 +188,13 @@ function recordVideo(event){
                         console.log(err);
                       });*/
                       //fetch('http://164.92.109.128:3060/video', {
-                      fetch('http://localhost:3000/video', {
+                      fetch('entrevistas.gestionhq5.com.co/video', {
                             method: 'POST',
                             headers: {
                             'Accept': 'application/json',
                             'Content-Type': 'application/json'
                         },
-                            body: JSON.stringify({ "url_video": videoUrl, "transcripcion": transcripcion, "tiempo": tiempoFin})
+                            body: JSON.stringify({ "url_video": base64data, "transcripcion": transcripcion, "tiempo": tiempoFin})
                         })
                         .then(response => response.json())
                         .then(response => console.log(JSON.stringify(response)))
