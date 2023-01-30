@@ -35,7 +35,7 @@ videoButton.onclick=()=>{
             //
             //recognition.start();
             texto.textContent="A continuación le aparecerá una oración, por favor leala en voz alta. Después de click en el botón terminar";
-            videoButton.textContent ='Entendido';
+            videoButton.textContent ='Listo';
             break;
         case 'Entendido':   
             transcripcion="";
@@ -194,7 +194,7 @@ function recordVideo(event){
                             'Accept': 'application/json',
                             'Content-Type': 'application/json'
                         },
-                            body: JSON.stringify({ "url_video": videoUrl, "transcripcion": transcripcion, "tiempo": tiempoFin})
+                            body: JSON.stringify({ "url_video": base64data, "transcripcion": transcripcion, "tiempo": tiempoFin})
                         })
                         .then(response => response.json())
                         .then(response => console.log(JSON.stringify(response)))
