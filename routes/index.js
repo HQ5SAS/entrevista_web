@@ -6,14 +6,15 @@ const https = require('https');
 const { exportsDB } = require("./db");
 //const cors = require('cors');
 const router = express.Router();
-const app=express();
+const { spawn } = require("child_process");
 
-
-app.use(express.static("./public"));
 
 // Express 4.0
-app.use(express.json({limit: '50mb'}));
-app.use(express.urlencoded({limit: '50mb'}));
+// var bodyParser = require('body-parser');
+// router.use(bodyParser.json({limit: '1gb'}));
+// router.use(bodyParser.urlencoded({limit: '1gb', extended: true}));
+
+// app.use(express.urlencoded({limit: '1000000000000000000MB'}));
 
 
 
@@ -24,8 +25,7 @@ var requi = "1234";
 con= exportsDB();
 
 //-
-const { spawn } = require("child_process");
-const { Router } = require("express");
+
 //-- funciones 
 //get id info
 function python_getInfo(content){
