@@ -35,7 +35,7 @@ videoButton.onclick=()=>{
             //
             //recognition.start();
             texto.textContent="A continuación le aparecerá una oración, por favor leala en voz alta. Después de click en el botón terminar";
-            videoButton.textContent ='Entendido';
+            videoButton.textContent ='Listo';
             break;
         case 'Entendido':   
             transcripcion="";

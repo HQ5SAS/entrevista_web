@@ -3,19 +3,18 @@ var express = require('express');
 const fs = require('fs');
 const http = require('http');
 const https = require('https');
-const bodyParser = require('body-parser');
 const { exportsDB } = require("./db");
 //const cors = require('cors');
 const router = express.Router();
-const app=express();
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({extended: false}));
+const { spawn } = require("child_process");
 
-app.use(express.static("./public"));
 
 // Express 4.0
-// Express 4.0
-router.use('/video', express.json({ limit: '10MB' }));
+// var bodyParser = require('body-parser');
+// router.use(bodyParser.json({limit: '1gb'}));
+// router.use(bodyParser.urlencoded({limit: '1gb', extended: true}));
+
+// app.use(express.urlencoded({limit: '1000000000000000000MB'}));
 
 
 
@@ -26,7 +25,7 @@ var requi = "1234";
 con= exportsDB();
 
 //-
-const { spawn } = require("child_process");
+
 //-- funciones 
 //get id info
 function python_getInfo(content){
