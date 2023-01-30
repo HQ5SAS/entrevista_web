@@ -12,9 +12,8 @@ const app=express();
 app.use(express.static("./public"));
 
 // Express 4.0
-var bodyParser = require('body-parser');
-router.use(bodyParser.json({limit: '50mb'}));
-router.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+app.use(express.json({limit: '50mb'}));
+app.use(express.urlencoded({limit: '50mb'}));
 
 
 
