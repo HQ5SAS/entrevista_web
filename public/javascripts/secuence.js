@@ -1,6 +1,4 @@
 
-
-
 //declaración variables provenienintes del ejs
 const video = document.getElementById('video_');
 const videoButton= document.getElementById('next_bttn');
@@ -95,6 +93,11 @@ videoButton.onclick=()=>{
                 console.log(transcripcion);    
                 pararCrono();
                 clearInterval(id);
+                navigator.mediaDevices.getUserMedia(
+                    {
+                        audio: false,
+                        video: false
+                    });
             }
             break;   
               
@@ -118,9 +121,7 @@ async function init(){
         console.log(e);
     }
     m = 0;
-    s = 0;
-    
-    
+    s = 0;   
 }
 
 //fn que inicia cámara
@@ -144,20 +145,10 @@ function recordVideo(event){
         video.srcObject=null;
         var videoUrl=URL.createObjectURL(event.data);
         video.src=videoUrl;
-        //const url_=videoUrl.replace('blob:','');
-        //to base 64 video
-        //var base64data="a";
+
         var resVideo=""
         try{
   
-            /*const videoBlob = fetch(url).then((e) => e.blob())
-
-            var reader = new FileReader();
-            reader.readAsDataURL(videoBlob); 
-            reader.onloadend = function() {
-            this.base64data = reader.result;                
-            console.log(base64data);
-            }*/
             const getBlobData = (file) =>{ 
                 axios({
                   method: "get",
@@ -172,23 +163,8 @@ function recordVideo(event){
                     formData.append("file", base64data);
                     console.log(base64data);
                     txtBase64vid.textContent=base64data;
-                    //formData.append("api_key", YOUR_API_KEY);
-                    // replace this with your upload preset name
-                    //formData.append("upload_preset", YOUR_PRESET_NAME);//via cloudinary
-                    /*axios({
-                      method: "POST",
-                      url: "https://api.cloudinary.com/v1_1/YOUR_CLOUD_NAME/upload",
-                      data: formData,
-                    })
-                      .then((res) => {
-                        const imageURL = res.data.url;
-                        //YOU CAN SET_STATE HOWEVER YOU WOULD LIKE HERE.
-                      })
-                      .catch((err) => {
-                        console.log(err);
-                      });*/
-                      //fetch('http://164.92.109.128:3060/video', {
-                      fetch('entrevistas.gestionhq5.com.co/video', {
+// fetch('entrevistas.gestionhq5.com.co/video', {
+                      fetch('http://localhost:3060/video', {
                             method: 'POST',
                             headers: {
                             'Accept': 'application/json',
@@ -321,3 +297,4 @@ video.addEventListener('play',  () => {
     },900)
 
 })
+////------------------------------------------------------------------------------------

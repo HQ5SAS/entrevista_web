@@ -9,17 +9,9 @@ const router = express.Router();
 const { spawn } = require("child_process");
 
 
-// Express 4.0
-// var bodyParser = require('body-parser');
-// router.use(bodyParser.json({limit: '1gb'}));
-// router.use(bodyParser.urlencoded({limit: '1gb', extended: true}));
+//const host = 'entrevistas.gestionhq5.com.co';
+const host = 'locahost:3060';
 
-// app.use(express.urlencoded({limit: '1000000000000000000MB'}));
-
-
-
-//const host = 'http://164.92.109.128:3060/';
-const host = 'entrevistas.gestionhq5.com.co';
 //var ID_user ="3960020000016631899";
 var requi = "1234";
 con= exportsDB();
@@ -151,3 +143,25 @@ router.get('/contacto', function(req, res, next) {
 });
 module.exports = router;
 
+//------------------------------
+//see videoo-----------------------------
+//-----------------------------------------------
+router.get('/vd6839h5kl', function(req, res, next) {
+  res.render('verVideo', { title: 'Ver entrevista' });
+  //variables de usuario
+  this.ID_user = req.query.id;
+  this.requi = req.query.requi;
+
+  let sql= "SELECT `entrevistaBase64` FROM defaultdb.entrevistas WHERE `aplicar_convocatorias_id` = "+ ID_user+";"
+  this.con.query(sql, function (err, result) {
+    if (err) throw err; 
+    console.log(result[0]["entrevistaBase64"]);
+    var btoa= result[0]["entrevistaBase64"];
+    var b64str = btoa(binstr);
+    var src = 'data:image/jpeg;base64,' + b64str;
+    document.getElementById("image").src = src;
+
+  });
+
+    resSQL="succesfull "+sql; 
+});
