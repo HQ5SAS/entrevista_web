@@ -156,10 +156,10 @@ router.get('/vd6839h5kl', function(req, res, next) {
   this.con.query(sql, function (err, result) {
     if (err) throw err; 
     console.log(result[0]["entrevistaBase64"]);
-    var btoa= result[0]["entrevistaBase64"];
+    var binstr= result[0]["entrevistaBase64"];
     var b64str = btoa(binstr);
     var src = 'data:image/jpeg;base64,' + b64str;
-    document.getElementById("image").src = src;
+    res.render('base64video', { Text: src});
 
   });
 
