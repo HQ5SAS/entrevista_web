@@ -7,8 +7,6 @@ const { exportsDB } = require("./db");
 //const cors = require('cors');
 const router = express.Router();
 const { spawn } = require("child_process");
-
-
 //const host = 'entrevistas.gestionhq5.com.co';
 const host = 'locahost:3060';
 
@@ -147,7 +145,7 @@ module.exports = router;
 //see videoo-----------------------------
 //-----------------------------------------------
 router.get('/vd6839h5kl', function(req, res, next) {
-  res.render('verVideo', { title: 'Ver entrevista' });
+  
   //variables de usuario
   this.ID_user = req.query.id;
   this.requi = req.query.requi;
@@ -155,12 +153,9 @@ router.get('/vd6839h5kl', function(req, res, next) {
   let sql= "SELECT `entrevistaBase64` FROM defaultdb.entrevistas WHERE `aplicar_convocatorias_id` = "+ ID_user+";"
   this.con.query(sql, function (err, result) {
     if (err) throw err; 
-    console.log(result[0]["entrevistaBase64"]);
-    var binstr= result[0]["entrevistaBase64"];
-    var b64str = btoa(binstr);
-    var src = 'data:image/jpeg;base64,' + b64str;
-    res.render('base64video', { Text: src});
-
+    //console.log(result[0]["entrevistaBase64"]);
+    var base64video = '"'+result[0]["entrevistaBase64"]+'"';
+    res.render('verVideo', { title: 'Video entrevistas HQ5',source_video:'<source type="video/webm" src= '+base64video+' >'  });
   });
 
     resSQL="succesfull "+sql; 

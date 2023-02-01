@@ -6,6 +6,7 @@
     "start": "node ./bin/www "
   },
   "dependencies": {
+    "atob": "^2.1.2",
     "axios": "^1.2.3",
     "body-parser": "^1.20.1",
     "connect": "^3.7.0",
@@ -20,6 +21,7 @@
     "middleware": "^1.0.0",
     "morgan": "~1.9.1",
     "mysql": "^2.18.1",
+    "node-blob": "^0.0.2",
     "xhr2": "^0.2.1"
   }
 }
