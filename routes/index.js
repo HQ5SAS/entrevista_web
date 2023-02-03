@@ -150,13 +150,13 @@ router.get('/vd6839h5kl', function(req, res, next) {
   this.ID_user = req.query.id;
   this.requi = req.query.requi;
 
-  let sql= "SELECT `entrevistaBase64` FROM defaultdb.entrevistas WHERE `aplicar_convocatorias_id` = "+ ID_user+";"
-  this.con.query(sql, function (err, result) {
+  let sqlVideo= "SELECT `entrevistaBase64` FROM defaultdb.entrevistas WHERE `aplicar_convocatorias_id` = "+ ID_user+";"
+  this.con.query(sqlVideo, function (err, result) {
     if (err) throw err; 
     //console.log(result[0]["entrevistaBase64"]);
     var base64video = '"'+result[0]["entrevistaBase64"]+'"';
     res.render('verVideo', { title: 'Video entrevistas HQ5',source_video:'<source type="video/webm" src= '+base64video+' >'  });
   });
 
-    resSQL="succesfull "+sql; 
+    resSQL="succesfull "+sqlVideo; 
 });
