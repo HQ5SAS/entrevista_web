@@ -83,7 +83,7 @@ router.post('/video', function(req, res) {
   var resSQL="";
   var resZoho="";
   var resVideo="";
-  var urlVideo=req.body.url_video;
+  var base64video=req.body.url_video;
   var respuestas =req.body.transcripcion;
   var duracion=req.body.tiempo;
   
@@ -99,7 +99,7 @@ router.post('/video', function(req, res) {
   var fechaFinEntrevista= `${dia}/${mes}/${anio}T${hora}:${minutos}:${segundos}`;
   console.log(fechaFinEntrevista);
   try{
-  var sql = "INSERT INTO `defaultdb`.`entrevistas` (`respuestas`, `duracion_entrevista`, `fecha_entrevista`, `aplicar_convocatorias_id`,`entrevistaBase64`) VALUES ('"+respuestas + "', '"+ duracion+ "', '"+fechaFinEntrevista + "', '"+ ID_user+ "', '"+ urlVideo+ "');";
+  var sql = "INSERT INTO `defaultdb`.`entrevistas` (`respuestas`, `duracion_entrevista`, `fecha_entrevista`, `aplicar_convocatorias_id`,`entrevistaBase64`) VALUES ('"+respuestas + "', '"+ duracion+ "', '"+fechaFinEntrevista + "', '"+ ID_user+ "', '"+ base64video+ "');";
 
     this.con.query(sql, function (err, result) {
       if (err) throw err; 
@@ -128,7 +128,7 @@ router.post('/video', function(req, res) {
 //------------------------------------
 //--;
   //console.log(url_);
-  res.send({"key":urlVideo, "resSQL":resSQL, "resZoho":resZoho, "resVideo":resVideo});
+  res.send({"key":"succses", "resSQL":resSQL, "resZoho":resZoho, "resVideo":resVideo});
   
 });
 
@@ -150,13 +150,13 @@ router.get('/vd6839h5kl', function(req, res, next) {
   this.ID_user = req.query.id;
   this.requi = req.query.requi;
 
-  let sql= "SELECT `entrevistaBase64` FROM defaultdb.entrevistas WHERE `aplicar_convocatorias_id` = "+ ID_user+";"
-  this.con.query(sql, function (err, result) {
+  let sqlResponse= "SELECT `entrevistaBase64` FROM defaultdb.entrevistas WHERE `aplicar_convocatorias_id` = "+ ID_user+";"
+  this.con.query(sqlResponse, function (err, result) {
     if (err) throw err; 
     //console.log(result[0]["entrevistaBase64"]);
     var base64video = '"'+result[0]["entrevistaBase64"]+'"';
     res.render('verVideo', { title: 'Video entrevistas HQ5',source_video:'<source type="video/webm" src= '+base64video+' >'  });
   });
-
-    resSQL="succesfull "+sql; 
+  sqlResponse
+    resSQL="succesfull "+sqlResponse; 
 });
