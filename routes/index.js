@@ -107,10 +107,10 @@ router.post('/video', function(req, res) {
       
     });
     this.con.commit();
-      resSQL="succesfull "+sql; 
+      resSQL="succesfull query"; 
   }
   catch (error){
-    resSQL =error + " error query:("+sql+")";
+    resSQL =error + " error query:()";
   }
   
   //envío de info a zoho
@@ -158,5 +158,5 @@ router.get('/vd6839h5kl', function(req, res, next) {
     res.render('verVideo', { title: 'Video entrevistas HQ5',source_video:'<source type="video/webm" src= '+base64video+' >'  });
   });
 
-    resSQL="succesfull "+sqlVideo; 
+    resSQL="succesfull query"; 
 });
