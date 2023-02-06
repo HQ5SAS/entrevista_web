@@ -24,7 +24,8 @@ var preguntas=[
 var countPreguntas=0;
 var transcripcion="";
 let mediaRecorder;
-
+//--------dominio
+const enlace= "http://localhost:3060";
 //función que acutua de forma secuencial para el btn, 
 videoButton.onclick=()=>{
 
@@ -82,23 +83,24 @@ videoButton.onclick=()=>{
                 nuPregunta=preguntas[countPreguntas];
                 texto.textContent=nuPregunta;
                 readTxt(nuPregunta);
-            }
+                
+            } 
             else if (countPreguntas==preguntas.length)
             {
                 stopRecording();
-                videoButton.style.display='none'; 
-                recognition.abort();   
-                texto.style.fontSize= "150%"
-                texto.textContent = texto.textContent="¡Muchas gracias por completar la entrevista! proximamente te contactaremos para informarte del proceso."; 
-                console.log(transcripcion);    
-                pararCrono();
-                clearInterval(id);
-                navigator.mediaDevices.getUserMedia(
-                    {
-                        audio: false,
-                        video: false
-                    });
-            }
+                    recognition.abort();
+                    pararCrono();
+                    clearInterval(id);
+                    texto.textContent="Espere mientras se carga la entrevista... :)";
+                    texto.style.fontSize= "250%"
+                    texto.style.marginTop="40%";
+                    videoButton.style.display='none'; 
+                    
+            }   
+            //else if (countPreguntas==preguntas.length)
+            //{
+                
+            //}
             break;   
               
     }
@@ -164,7 +166,7 @@ function recordVideo(event){
                     console.log(base64data);
                     txtBase64vid.textContent=base64data;
 // fetch('entrevistas.gestionhq5.com.co/video', {
-                      fetch('http://localhost:3060/video', {
+                      fetch(enlace+ '/video', {
                             method: 'POST',
                             headers: {
                             'Accept': 'application/json',
@@ -178,8 +180,13 @@ function recordVideo(event){
                   };
                 });
               };
-              getBlobData(videoUrl);
+              getBlobData(videoUrl).then(location.replace(enlace+ "/contacto"));
               resVideo = "FUNCIONA";
+              
+              //videoButton.onclick=function(){
+              //  location.href= enlace+ "/contacto";
+            //}
+
             }
         
         catch(error) {
