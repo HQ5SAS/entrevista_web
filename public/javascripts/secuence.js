@@ -6,6 +6,7 @@ var texto =document.getElementById('pregunta_txt');
 const cronometro = document.getElementById('timer');
 const divVideo= document.getElementById("cotainer_video");
 const txtBase64vid= document.getElementById("fileBase64");
+const loadImage=document.getElementById("loadImg");
 //vars
 var alertas =document.getElementById("alertas");
 var videoUrlglobal="";
@@ -49,7 +50,7 @@ videoButton.onclick=()=>{
             break;
         case 'Terminar':      
             recognition.abort();  
-            console.log(transcripcion);    
+            //console.log(transcripcion);    
             if(transcripcion=="Esto es una prueba."){
                 videoButton.textContent ='Listo';
                 texto.textContent="A continación se realizará la entrevista vitual. Cuando des click en el botón 'Listo' se comenzará a grabar el video que se toma desde tu dispositivo.La entrvista tiene un tiempo límite de máximo 6 minutos."
@@ -66,9 +67,9 @@ videoButton.onclick=()=>{
         case 'Listo':
             transcripcion="";
             videoButton.textContent ='Siguiente';
-            texto.style.marginTop="40%";
+            //texto.style.marginTop="40%";
             texto.textContent=preguntas[0];
-            texto.style.fontSize= "250%"
+            //texto.style.fontSize= "250%"
             recognition.start();
             startRecording();
             nuPregunta=preguntas[0]
@@ -87,14 +88,18 @@ videoButton.onclick=()=>{
             } 
             else if (countPreguntas==preguntas.length)
             {
+                pararCrono();
+                recognition.abort();
+                clearInterval(id);
+                texto.textContent="Espere mientras se carga la entrevista... :)";
+                //texto.style.fontSize= "250%"
+                texto.style.marginTop="0%";
+                videoButton.style.display='none'; 
+                //video.style.display='none';
+                loadImage.style.visibility='visible';
+                loadImage.style.height="15%";
                 stopRecording();
-                    recognition.abort();
-                    pararCrono();
-                    clearInterval(id);
-                    texto.textContent="Espere mientras se carga la entrevista... :)";
-                    texto.style.fontSize= "250%"
-                    texto.style.marginTop="40%";
-                    videoButton.style.display='none'; 
+                    
                     
             }   
             //else if (countPreguntas==preguntas.length)
@@ -107,6 +112,8 @@ videoButton.onclick=()=>{
 }
 //solicita el acceso de audio y video desde la pag web
 async function init(){
+    loadImage.style.visibility='hidden';
+    loadImage.style.height="0px";
     //inicializa cronometro en ceros )
     
     try {
@@ -146,7 +153,7 @@ function recordVideo(event){
     if (event.data && event.data.size > 0){
         video.srcObject=null;
         var videoUrl=URL.createObjectURL(event.data);
-        video.src=videoUrl;
+        //video.src="/images/loading.gif";
 
         var resVideo=""
         try{
@@ -163,7 +170,7 @@ function recordVideo(event){
                     var base64data = reader.result;
                     const formData = new FormData();
                     formData.append("file", base64data);
-                    console.log(base64data);
+                    //console.log(base64data);
                     txtBase64vid.textContent=base64data;
 // fetch('entrevistas.gestionhq5.com.co/video', {
                       fetch(enlace+ '/video', {
@@ -175,14 +182,14 @@ function recordVideo(event){
                             body: JSON.stringify({ "url_video": base64data, "transcripcion": transcripcion, "tiempo": tiempoFin})
                         })
                         .then(response => response.json())
-                        .then(response => console.log(JSON.stringify(response)))
-                        
+                        //.then(response => console.log(JSON.stringify(response)))
+                        .then( location.replace(enlace+ "/contacto") )//redirige a url de contacto
                   };
                 });
               };
-              getBlobData(videoUrl).then(location.replace(enlace+ "/contacto"));
-              resVideo = "FUNCIONA";
               
+              getBlobData(videoUrl);
+              resVideo = "FUNCIONA";              
               //videoButton.onclick=function(){
               //  location.href= enlace+ "/contacto";
             //}
@@ -192,7 +199,7 @@ function recordVideo(event){
         catch(error) {
           resVideo = error;
         }
-        console.log(resVideo);
+        //console.log(resVideo);
         
 
            
@@ -239,7 +246,7 @@ try {
     $('.app').hide();
   }
   recognition.onresult = (event) => {
-    console.log("detectando");
+    //console.log("detectando");
     if(videoButton.textContent ==''){
         videoButton.textContent ='Terminar';
     }
@@ -304,4 +311,3 @@ video.addEventListener('play',  () => {
     },900)
 
 })
-////------------------------------------------------------------------------------------

@@ -27,7 +27,6 @@
   border-bottom-left-radius: 20px;
   border-top-left-radius:20px ;
   background-color: blanchedalmond;
-
 }
 .center_ {
   margin-top: 15%;
@@ -36,8 +35,9 @@
   
 }
 #pregunta_txt{
-  font-family: 'Montserrat', sans-serif;
-  font-size: 1.8vw;
+  font-family: 'helvetica';
+  margin-top: 10%;
+  font-size: 200%
 }
 /* Style all font awesome icons */
 .icons {
