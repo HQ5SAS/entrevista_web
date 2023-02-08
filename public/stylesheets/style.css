@@ -1,5 +1,5 @@
 
-#cotainer_video {
+#container_video {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -27,6 +27,7 @@
   border-bottom-left-radius: 20px;
   border-top-left-radius:20px ;
   background-color: blanchedalmond;
+
 }
 .center_ {
   margin-top: 15%;

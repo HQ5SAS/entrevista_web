@@ -4,9 +4,12 @@ const video = document.getElementById('video_');
 const videoButton= document.getElementById('next_bttn');
 var texto =document.getElementById('pregunta_txt');
 const cronometro = document.getElementById('timer');
-const divVideo= document.getElementById("cotainer_video");
+const divVideo= document.getElementById("container_video");
 const txtBase64vid= document.getElementById("fileBase64");
 const loadImage=document.getElementById("loadImg");
+const divPreguntas=document.getElementById("divicionDerecha");
+const header_=document.getElementById("header_");
+//const body_ =document.getElementById("body_");
 //vars
 var alertas =document.getElementById("alertas");
 var videoUrlglobal="";
@@ -27,6 +30,18 @@ var transcripcion="";
 let mediaRecorder;
 //--------dominio
 const enlace= "http://localhost:3060";
+//-----estilos modif
+if (divPreguntas.offsetWidth <"500"){
+   divPreguntas.classList.remove('text-bg-dark');
+    body_.style.backgroundColor="rgb(240, 240, 240)";
+    divVideo.style.height = "30vh";
+    video.style.width="250px";
+    video.style.marginTop="20px"
+    header_.style.display='none';
+    texto.style.fontSize= "150%";
+    videoButton.style.marginBottom = "10px"
+}
+
 //función que acutua de forma secuencial para el btn, 
 videoButton.onclick=()=>{
 
@@ -92,20 +107,14 @@ videoButton.onclick=()=>{
                 recognition.abort();
                 clearInterval(id);
                 texto.textContent="Espere mientras se carga la entrevista... :)";
-                //texto.style.fontSize= "250%"
                 texto.style.marginTop="0%";
                 videoButton.style.display='none'; 
-                //video.style.display='none';
                 loadImage.style.visibility='visible';
                 loadImage.style.height="15%";
                 stopRecording();
                     
                     
             }   
-            //else if (countPreguntas==preguntas.length)
-            //{
-                
-            //}
             break;   
               
     }
