@@ -107,14 +107,16 @@ videoButton.onclick=()=>{
                 clearInterval(id);
                 texto.textContent="Espere mientras se carga la entrevista... :)";
                 texto.style.marginTop="0%";
-                videoButton.style.display='none'; 
+                videoButton.textContent=''; 
                 loadImage.style.visibility='visible';
                 loadImage.style.height="15%";
                 stopRecording();                 
             }   
             break;  
-        case 'Enviar entrevista' :   
-                videoButton.onclick=function(){
+        case 'Enviar entrevista' :           
+            
+            videoButton.onclick=function(){
+                
                location.href= enlace+ "/contacto";
             }
             
