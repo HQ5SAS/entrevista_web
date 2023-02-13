@@ -120,15 +120,15 @@ router.post('/video', function(req, res) {
   //   console.log("error get info")
   // }
 
-  //envío de info a zoho
-  try{
-    python_sendInfo({"key":"contenido", "id": ID_user});
-    resZoho= "info actualizada zoho"
-  }
-  catch (error){
-    esZoho=error;
-  }
-
+  //envío de info a zoho--------------------------------------------------------ººººº
+  // try{
+  //   python_sendInfo({"key":"contenido", "id": ID_user});
+     resZoho= "info actualizada zoho"
+  // }
+  // catch (error){
+  //   esZoho=error;
+  // }
+//-------------------------------------------------------------------
   
 
 //get videoo-----------------------------
