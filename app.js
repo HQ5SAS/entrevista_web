@@ -11,7 +11,7 @@ var bodyParser = require('body-parser')
 
 var app = express();
 
-app.use(bodyParser.json({limit: '1gb'}));
+app.use(bodyParser.json({limit: '10gb'}));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
