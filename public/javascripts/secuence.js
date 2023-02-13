@@ -190,7 +190,7 @@ function recordVideo(event){
                         })
                         .then(response => response.json())
                         //.then(response => console.log(JSON.stringify(response)))
-                        .then( location.replace(enlace+ "/contacto") )//redirige a url de contacto
+                        //.then( location.replace(enlace+ "/contacto") )//redirige a url de contacto
                   };
                 });
               };
