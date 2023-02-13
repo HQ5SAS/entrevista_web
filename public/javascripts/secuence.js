@@ -196,7 +196,7 @@ function recordVideo(event){
                         })
                         .then(response => response.json())
                         .then(response => console.log(JSON.stringify(response)))
-                        //.then( videoButton.textContent ='Enviar entrevista' )//redirige a url de contacto
+                        .then( videoButton.textContent ='Enviar entrevista' )//redirige a url de contacto
                   };
                 });
               };
