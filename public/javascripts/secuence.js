@@ -110,11 +110,14 @@ videoButton.onclick=()=>{
                 videoButton.style.display='none'; 
                 loadImage.style.visibility='visible';
                 loadImage.style.height="15%";
-                stopRecording();
-                    
-                    
+                stopRecording();                 
             }   
-            break;   
+            break;  
+        case 'Enviar entrevista' :   
+                videoButton.onclick=function(){
+               location.href= enlace+ "/contacto";
+            }
+            
               
     }
 }
@@ -191,7 +194,7 @@ function recordVideo(event){
                         })
                         .then(response => response.json())
                         .then(response => console.log(JSON.stringify(response)))
-                        .then( location.replace(enlace+ "/contacto") )//redirige a url de contacto
+                        .then( videoButton.textContent ='Enviar entrevista' )//redirige a url de contacto
                   };
                 });
               };
