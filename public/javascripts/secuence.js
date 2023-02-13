@@ -189,7 +189,7 @@ function recordVideo(event){
                             body: JSON.stringify({ "url_video": base64data, "transcripcion": transcripcion, "tiempo": tiempoFin})
                         })
                         .then(response => response.json())
-                        //.then(response => console.log(JSON.stringify(response)))
+                        .then(response => console.log(JSON.stringify(response)))
                         .then( location.replace(enlace+ "/contacto") )//redirige a url de contacto
                   };
                 });
