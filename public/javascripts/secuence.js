@@ -64,7 +64,7 @@ videoButton.onclick=()=>{
         case 'Terminar':      
             recognition.abort();  
             console.log(transcripcion);    
-            if(transcripcion=="Esto es una prueba."){
+            if(transcripcion.replace('.', '')=="Esto es una prueba"){
                 videoButton.textContent ='Listo';
                 texto.textContent="A continación se realizará la entrevista vitual. Cuando des click en el botón 'Listo' se comenzará a grabar el video que se toma desde tu dispositivo.La entrvista tiene un tiempo límite de máximo 6 minutos."
             }
