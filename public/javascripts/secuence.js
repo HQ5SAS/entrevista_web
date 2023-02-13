@@ -17,13 +17,11 @@ var sAux ="0";
 var mAux ="0";
 var tiempoFin="0";
 var preguntas=[
-    'Háblame de ti',
-    '¿Qué te gusta hacer en tu tiempo libre?',
-    '¿Por qué te interesa el puesto?',
-    '¿Por qué dejaste tu anterior empleo? ¿Por qué quieres cambiar de empleo?',
-    '¿Cuál es tu mayor virtud o habilidad?',
-    '¿Cuál es tu mayor debilidad o defecto?',
-    '¿Por qué deberíamos contratarte?'
+    '¿Cuál es su experiencia previa relevante y qué le llevó a interesarse por este trabajo en particular?',
+    '¿Cómo describiría sus fortalezas y habilidades relevantes para este trabajo?',
+    '¿Qué expectativas tiene sobre este trabajo y cómo cree que puede contribuir a la empresa?',
+    '¿Cómo maneja usted situaciones de alta demanda y plazos ajustados en un entorno de trabajo acelerado?',
+    '¿Qué medidas toma para mantener actualizadas sus habilidades y conocimientos relevantes y mejorar continuamente su desempeño en el trabajo?'
 ]
 var countPreguntas=0;
 var transcripcion="";
@@ -50,7 +48,7 @@ videoButton.onclick=()=>{
             //
             //recognition.start();
             texto.textContent="A continuación le aparecerá una oración, por favor leala en voz alta. Después de click en el botón terminar";
-            videoButton.textContent ='Listo';
+            videoButton.textContent ='Entendido';
             break;
         case 'Entendido':   
             transcripcion="";
