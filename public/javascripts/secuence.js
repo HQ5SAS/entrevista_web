@@ -66,7 +66,7 @@ videoButton.onclick=()=>{
             console.log(transcripcion);    
             if(transcripcion.replace('.', '')=="Esto es una prueba"){
                 videoButton.textContent ='Listo';
-                texto.textContent="A continación se realizará la entrevista vitual. Cuando des click en el botón 'Listo' se comenzará a grabar el video que se toma desde tu dispositivo.La entrvista tiene un tiempo límite de máximo 6 minutos."
+                texto.textContent="A continación se realizará la entrevista vitual. Cuando des click en el botón 'Listo' se comenzará a grabar el video que se toma desde tu dispositivo.La entrvista tiene un tiempo límite de máximo 10 minutos."
             }
             else if(transcripcion==""){
                 texto.textContent="intente de nuevo por favor, no se detectó audio"
