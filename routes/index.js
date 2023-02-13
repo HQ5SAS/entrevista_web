@@ -79,7 +79,7 @@ router.get('/', function(req, res, next) {
 //---finalizar entrevista
 //--video
 router.post('/video', function(req, res) {
-  
+  async function saveInformation(req){  
   var resSQL="";
   var resZoho="";
   var resVideo="";
@@ -99,8 +99,7 @@ router.post('/video', function(req, res) {
   var fechaFinEntrevista= `${dia}/${mes}/${anio}T${hora}:${minutos}:${segundos}`;
   console.log(fechaFinEntrevista);
   try{
-  var sql = "INSERT INTO `defaultdb`.`entrevistas` (`respuestas`, `duracion_entrevista`, `fecha_entrevista`, `aplicar_convocatorias_id`,`entrevistaBase64`) VALUES ('"+respuestas + "', '"+ duracion+ "', '"+fechaFinEntrevista + "', '"+ ID_user+ "', '"+ urlVideo+ "');";
-
+    var sql = "INSERT INTO `defaultdb`.`entrevistas` (`respuestas`, `duracion_entrevista`, `fecha_entrevista`, `aplicar_convocatorias_id`,`entrevistaBase64`) VALUES ('"+respuestas + "', '"+ duracion+ "', '"+fechaFinEntrevista + "', '"+ ID_user+ "', '"+ urlVideo+ "');";
     this.con.query(sql, function (err, result) {
       if (err) throw err; 
       console.log("succesfull"+sql);
@@ -137,7 +136,8 @@ router.post('/video', function(req, res) {
 //--;
   //console.log(url_);
   res.send({"key":urlVideo, "resSQL":resSQL, "resZoho":resZoho, "resVideo":resVideo});
-  
+} 
+saveInformation(req);
 });
 
 router.get('/empezar', function(req, res, next) {
