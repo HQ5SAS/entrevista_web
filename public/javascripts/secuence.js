@@ -107,20 +107,13 @@ videoButton.onclick=()=>{
                 clearInterval(id);
                 texto.textContent="Espere mientras se carga la entrevista... :)";
                 texto.style.marginTop="0%";
-                videoButton.textContent=''; 
+                videoButton.style.display='none'; 
                 loadImage.style.visibility='visible';
                 loadImage.style.height="15%";
                 stopRecording();                 
             }   
             break;  
-        case 'Enviar entrevista' :           
-            
-            videoButton.onclick=function(){
-                
-               location.href= enlace+ "/contacto";
-            }
-            
-              
+        
     }
 }
 //solicita el acceso de audio y video desde la pag web
@@ -196,7 +189,6 @@ function recordVideo(event){
                         })
                         .then(response => response.json())
                         .then(response => console.log(JSON.stringify(response)))
-                        .then( videoButton.textContent ='Enviar entrevista' )//redirige a url de contacto
                   };
                 });
               };

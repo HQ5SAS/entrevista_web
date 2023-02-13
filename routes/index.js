@@ -137,7 +137,7 @@ router.post('/video', function(req, res) {
   //console.log(url_);
   res.send({"key":urlVideo, "resSQL":resSQL, "resZoho":resZoho, "resVideo":resVideo});
 } 
-saveInformation(req);
+saveInformation(req).then(window.location.href = host+ '/contacto');
 });
 
 router.get('/empezar', function(req, res, next) {
