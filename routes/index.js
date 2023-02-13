@@ -11,7 +11,7 @@ const { spawn } = require("child_process");
 const host = 'locahost:3060';
 
 //var ID_user ="3960020000016631899";
-var requi = "1234";
+//var requi = "1234";
 con= exportsDB();
 
 //-
@@ -65,16 +65,16 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Consejos' });
   //variables de usuario
   this.ID_user = req.query.id;
-  this.requi = req.query.requi;
-
+  var requi = req.query.requi;
+  python_getInfo({"key":"contenido", "requi": this.requi});
   console.log('requi:'+ requi+'id:'+ID_user);
 });
 //---busqueda registro para función sen info (cambia registro de zoho)
-router.get("/zoho/get", function(req, res){
-  console.log("solicitud enviada a python");
-  python_getInfo({"key":"contenido", "id": this.ID_user});
-  res.send("solicitud recibida");
-});
+// router.get("/zoho/get", function(req, res){
+//   console.log("solicitud enviada a python");
+//   python_getInfo({"key":"contenido", "id": this.ID_user});
+//   res.send("solicitud recibida");
+// });
 
 //---finalizar entrevista
 //--video
@@ -112,15 +112,23 @@ router.post('/video', function(req, res) {
   catch (error){
     resSQL =error + " error query:()";
   }
-  
+  //obtener preguntas requi ZOHO
+  try{
+    python_getInfo({"key":"contenido", "requi": requi })
+  }
+  catch (error){
+    console.log("error get info")
+  }
+
   //envío de info a zoho
   try{
     python_sendInfo({"key":"contenido", "id": ID_user});
     resZoho= "info actualizada zoho"
   }
   catch (error){
-    resZoho=error;
+    esZoho=error;
   }
+
   
 
 //get videoo-----------------------------

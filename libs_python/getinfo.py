@@ -3,8 +3,8 @@ import json
 import requests
 
 comando = sys.stdin.readline()
-x = json.loads(comando)
-id_user= '3960020000016631899'
+json_input = json.loads(comando)
+requi = json_input["requi"]
 
 def zoho_api():
     # Obtener acces token
@@ -25,10 +25,10 @@ def zoho_api():
         }
         # 'ID==3960020000012096751'
         c_param = {
-            'criteria': 'ID=="'+id_user+'"'
+            'criteria': 'id_requisicion=="'+requi+'"'
         }
         # ,params = param
-        c_js = requests.get('https://creator.zoho.com/api/v2/hq5colombia/hq5/report/Vista_General11', headers=a_tk,
+        c_js = requests.get('https://creator.zoho.com/api/v2/hq5colombia/hq5/report/requisiciones_entrevista', headers=a_tk,
                             params=c_param)
         c_js = json.loads(c_js.text)
         # print(c_js)
