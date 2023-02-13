@@ -27,6 +27,7 @@ var countPreguntas=0;
 var transcripcion="";
 let mediaRecorder;
 //--------dominio
+// https://entrevistas.gestionhq5.com.co
 const enlace= "https://entrevistas.gestionhq5.com.co";
 //-----estilos modif
 if (divPreguntas.offsetWidth <"500"){

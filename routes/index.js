@@ -7,7 +7,7 @@ const { exportsDB } = require("./db");
 //const cors = require('cors');
 const router = express.Router();
 const { spawn } = require("child_process");
-//const host = 'entrevistas.gestionhq5.com.co';
+//const host = 'https://entrevistas.gestionhq5.com.co';
 const host = 'https://entrevistas.gestionhq5.com.co';
 
 //var ID_user ="3960020000016631899";
