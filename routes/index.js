@@ -66,7 +66,7 @@ router.get('/', function(req, res, next) {
   //variables de usuario
   this.ID_user = req.query.id;
   var requi = req.query.requi;
-  python_getInfo({"key":"contenido", "requi": requi});
+  //python_getInfo({"key":"contenido", "requi": requi});
   console.log('requi:'+ requi+'id:'+ID_user);
 });
 //---busqueda registro para función sen info (cambia registro de zoho)
@@ -113,12 +113,12 @@ router.post('/video', function(req, res) {
     resSQL =error + " error query:()";
   }
   //obtener preguntas requi ZOHO
-  try{
-    python_getInfo({"key":"contenido", "requi": requi })
-  }
-  catch (error){
-    console.log("error get info")
-  }
+  // try{
+  //   python_getInfo({"key":"contenido", "requi": requi })
+  // }
+  // catch (error){
+  //   console.log("error get info")
+  // }
 
   //envío de info a zoho
   try{
