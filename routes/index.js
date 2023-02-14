@@ -140,7 +140,7 @@ async function saveInformation(req){
 //--video
 router.post('/video', function(req, res) {
   
-saveInformation(req).then(window.location.href = host+ '/contacto').then(response => res.send(response))
+saveInformation(req).then(response => res.send(response)).then(window.location.href = host+ '/contacto')
 });
 
 router.get('/empezar', function(req, res, next) {
