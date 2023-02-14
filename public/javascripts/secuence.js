@@ -189,6 +189,7 @@ function recordVideo(event){
                         })
                         .then(response => response.json())
                         .then(response => console.log(JSON.stringify(response)))
+                        .then(window.location.href = enlace+ '/contacto')
                   };
                 });
               };

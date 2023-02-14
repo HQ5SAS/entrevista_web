@@ -141,7 +141,7 @@ router.get('/', function(req, res, next) {
 //--video
 router.post('/video', function(req, res) {
   
-saveInformation(req).then(res.render('contacto', { title: 'Contacto HQ5' }));
+saveInformation(req);
 });
 
 router.get('/empezar', function(req, res, next) {
