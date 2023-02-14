@@ -141,7 +141,7 @@ async function saveInformation(req){
 //--video
 router.post('/video', function(req, res) {
   
-saveInformation(req).then(res.redirect(host + "/contacto"))
+saveInformation(req).then(redirect(host + "/contacto"))
 });
 
 router.get('/empezar', function(req, res, next) {
