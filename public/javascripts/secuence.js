@@ -28,7 +28,7 @@ var transcripcion="";
 let mediaRecorder;
 //--------dominio
 // https://entrevistas.gestionhq5.com.co
-const enlace= "https://entrevistas.gestionhq5.com.co";
+const enlace= "http://localhost:3060";
 //-----estilos modif
 if (divPreguntas.offsetWidth <"500"){
    divPreguntas.classList.remove('text-bg-dark');
@@ -189,7 +189,7 @@ function recordVideo(event){
                         })
                         .then(response => response.json())
                         .then(response => console.log(JSON.stringify(response)))
-                        .then(window.location.href = enlace+ '/contacto')
+                        //.then(window.location.href = enlace+ '/contacto')
                   };
                 });
               };
