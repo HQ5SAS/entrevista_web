@@ -103,7 +103,7 @@ async function saveInformation(req){
     var sql = "INSERT INTO `defaultdb`.`entrevistas` (`respuestas`, `duracion_entrevista`, `fecha_entrevista`, `aplicar_convocatorias_id`,`entrevistaBase64`) VALUES ('"+respuestas + "', '"+ duracion+ "', '"+fechaFinEntrevista + "', '"+ ID_user+ "', '"+ urlVideo+ "');";
     this.con.query(sql, function (err, result) {
       if (err) throw err; 
-      console.log("succesfull"+sql);
+      console.log("video guardado en db");
       
     });
     this.con.commit();
@@ -141,7 +141,7 @@ async function saveInformation(req){
 //--video
 router.post('/video', function(req, res) {
   
-saveInformation(req).then(res.render('contacto'))
+saveInformation(req).then(response => res.send(response));
 });
 
 router.get('/empezar', function(req, res, next) {
