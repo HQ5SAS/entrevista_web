@@ -30,6 +30,7 @@ let mediaRecorder;
 function waitUrlfn(){
     setTimeout(function(){
 
+        texto.textContent="¡Listo! Da click en el botón enviar entrevista";
             videoButton.textContent ='Enviar entrevista';
     }, 20000); 
 }
