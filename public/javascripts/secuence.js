@@ -26,6 +26,14 @@ var preguntas=[
 var countPreguntas=0;
 var transcripcion="";
 let mediaRecorder;
+//fn wait
+function waitUrlfn(){
+    setTimeout(function(){
+
+            videoButton.textContent ='Enviar entrevista';
+    }, 20000); 
+}
+
 //--------dominio
 // https://entrevistas.gestionhq5.com.co
 const enlace= "http://localhost:3060";
@@ -107,12 +115,15 @@ videoButton.onclick=()=>{
                 clearInterval(id);
                 texto.textContent="Espere mientras se carga la entrevista... :)";
                 texto.style.marginTop="0%";
-                videoButton.style.display='none'; 
+                videoButton.textContent ='';
                 loadImage.style.visibility='visible';
                 loadImage.style.height="15%";
                 stopRecording();                 
             }   
             break;  
+        case 'Enviar entrevista':
+            window.location.href = enlace+ '/contacto'
+            
         
     }
 }
@@ -189,7 +200,7 @@ function recordVideo(event){
                         })
                         .then(response => response.json())
                         .then(response => console.log(JSON.stringify(response)))
-                        //.then(window.location.href = enlace+ '/contacto')
+                        .then(waitUrlfn())
                   };
                 });
               };
