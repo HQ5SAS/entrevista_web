@@ -80,7 +80,7 @@ router.get('/', function(req, res, next) {
 
 //---finalizar entrevista+
 //-fn video
-async function saveInformation(req){  
+ function saveInformation(req){  
   var resSQL="";
   var resZoho="";
   var resVideo="";
