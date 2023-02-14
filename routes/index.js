@@ -8,6 +8,7 @@ const { exportsDB } = require("./db");
 const router = express.Router();
 const { spawn } = require("child_process");
 const { response } = require("express");
+const { render } = require("ejs");
 //const host = 'https://entrevistas.gestionhq5.com.co';
 const host = 'https://entrevistas.gestionhq5.com.co';
 
@@ -140,7 +141,7 @@ async function saveInformation(req){
 //--video
 router.post('/video', function(req, res) {
   
-saveInformation(req).then(response => res.send(response)).then(window.location.href = host+ '/contacto')
+saveInformation(req).then(res.redirect(host + "/contacto"))
 });
 
 router.get('/empezar', function(req, res, next) {
