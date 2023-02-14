@@ -7,6 +7,7 @@ const { exportsDB } = require("./db");
 //const cors = require('cors');
 const router = express.Router();
 const { spawn } = require("child_process");
+const { response } = require("express");
 //const host = 'https://entrevistas.gestionhq5.com.co';
 const host = 'https://entrevistas.gestionhq5.com.co';
 
@@ -76,10 +77,9 @@ router.get('/', function(req, res, next) {
 //   res.send("solicitud recibida");
 // });
 
-//---finalizar entrevista
-//--video
-router.post('/video', function(req, res) {
-  async function saveInformation(req){  
+//---finalizar entrevista+
+//-fn video
+async function saveInformation(req){  
   var resSQL="";
   var resZoho="";
   var resVideo="";
@@ -135,9 +135,12 @@ router.post('/video', function(req, res) {
 //------------------------------------
 //--;
   //console.log(url_);
-  res.send({"key":urlVideo, "resSQL":resSQL, "resZoho":resZoho, "resVideo":resVideo});
-} 
-saveInformation(req).then(window.location.href = host+ '/contacto');
+  return({"key":urlVideo, "resSQL":resSQL, "resZoho":resZoho, "resVideo":resVideo});
+}
+//--video
+router.post('/video', function(req, res) {
+  
+saveInformation(req).then(window.location.href = host+ '/contacto').then(response => res.send(response))
 });
 
 router.get('/empezar', function(req, res, next) {
