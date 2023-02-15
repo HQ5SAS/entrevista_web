@@ -9,7 +9,8 @@ const txtBase64vid= document.getElementById("fileBase64");
 const loadImage=document.getElementById("loadImg");
 const divPreguntas=document.getElementById("divicionDerecha");
 const header_=document.getElementById("header_");
-//const body_ =document.getElementById("body_");
+const recGif = document.getElementById("recGif");
+const micImg=document.getElementById("mic");
 //vars
 var alertas =document.getElementById("alertas");
 var videoUrlglobal="";
@@ -40,7 +41,7 @@ function waitUrlfn(){
 
 //--------dominio
 // https://entrevistas.gestionhq5.com.co
-const enlace= "https://entrevistas.gestionhq5.com.co";
+const enlace= "http://localhost:3060";
 //-----estilos modif
 if (divPreguntas.offsetWidth <"500"){
    divPreguntas.classList.remove('text-bg-dark');
@@ -58,10 +59,11 @@ videoButton.onclick=()=>{
 
     switch(videoButton.textContent){
         case 'Probar sonido':
-            texto.textContent='Por favor, lea toda instrucción antes de continuar. Primero de click al botón entendido. Depués lea SOLO la oración que se encuentra entre comillas en voz alta. Después de click en el botón terminar. La oracion que debe decir es: "Esto es una prueba"';
-            videoButton.textContent ='Entendido';
+            texto.textContent='Por favor, lea toda instrucción antes de continuar.\nPrimero de click al botón <<iniciar prueba>>. \nLuego lea SOLO la oración que se encuentra entre comillas en voz alta. \n Después de click en el botón <<terminar>> que aparecerá. \nLa oración que debe decir es: "Esto es una prueba"';
+            videoButton.textContent ='iniciar prueba';
             break;
-        case 'Entendido':   
+        case 'iniciar prueba':  
+            micImg.style.display='block'; 
             videoButton.style.visibility='hidden';
             transcripcion="";
             recognition.start();
@@ -73,20 +75,21 @@ videoButton.onclick=()=>{
             }, 6000);
             
             break;
-        case 'Terminar':      
+        case 'Terminar':     
+        micImg.style.display='none'; 
             recognition.abort();  
             console.log(transcripcion);    
             if(transcripcion.replace('.', '')=="Esto es una prueba"){
                 videoButton.textContent ='Listo';
-                texto.textContent="A continación se realizará la entrevista vitual. Cuando des click en el botón 'Listo' se comenzará a grabar el video que se toma desde tu dispositivo.La entrevista tiene un tiempo límite de máximo 10 minutos."
+                texto.textContent="A continación se realizará la entrevista virtual. Cuando des click en el botón 'Listo' se comenzará a grabar el video que se toma desde tu dispositivo.La entrevista tiene un tiempo límite de máximo 10 minutos."
             }
             else if(transcripcion==""){
-                texto.textContent="intente de nuevo por favor, no se detectó audio"
-                videoButton.textContent ='Entendido';
+                texto.textContent='intente de nuevo por favor, no se detectó audio. Lea SOLO la oración que se encuentra entre comillas en voz alta. La oracion que debe decir es: "Esto es una prueba"'
+                videoButton.textContent ='iniciar prueba';
             }
             else{
-                texto.textContent="intente de nuevo por favor, revise el ruido del lugar"
-                videoButton.textContent ='Entendido';
+                texto.textContent='intente de nuevo por favor, revise el ruido del lugar.\n Lea SOLO la oración que se encuentra entre comillas en voz alta. \n\nLa oracion que debe decir es: "Esto es una prueba"'
+                videoButton.textContent ='iniciar prueba';
             }
             break;
         case 'Listo':
@@ -192,9 +195,6 @@ function recordVideo(event){
                     var base64data = reader.result;
                     const formData = new FormData();
                     formData.append("file", base64data);
-                    //console.log(base64data);
-                    txtBase64vid.textContent=base64data;
-// fetch('entrevistas.gestionhq5.com.co/video', {
                       fetch(enlace+ '/video', {
                             method: 'POST',
                             headers: {
