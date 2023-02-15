@@ -30,8 +30,10 @@ let mediaRecorder;
 function waitUrlfn(){
     setTimeout(function(){
 
-        texto.textContent="¡Listo! Da click en el botón enviar entrevista";
-            videoButton.textContent ='Enviar entrevista';
+        loadImage.style.visibility='hidden';
+        texto.textContent="¡Listo! Entrevista enviada exitosamente. Da click en el botón para acceder a nuestra sección de contacto";
+        videoButton.textContent ='Contacto';
+        alertas.style.visibility='hidden';
     }, 20000); 
 }
 
@@ -55,21 +57,20 @@ videoButton.onclick=()=>{
 
     switch(videoButton.textContent){
         case 'Probar sonido':
-            //
-            //recognition.start();
-            texto.textContent="A continuación le aparecerá una oración, por favor leala en voz alta. Después de click en el botón terminar";
+            texto.textContent='Por favor, lea toda instrucción antes de continuar. Primero de click al botón entendido. Depués lea la oración que aparece a continuación, que se encuentra entre comillas en voz alta. Después de click en el botón terminar. La oracion que debe decir es: "Esto es una prueba"';
             videoButton.textContent ='Entendido';
             break;
         case 'Entendido':   
+            videoButton.style.visibility='hidden';
             transcripcion="";
             recognition.start();
-            texto.textContent="Esto es una prueba";
             setTimeout(function(){
                 if(videoButton.textContent ==''){
                     videoButton.textContent ='Terminar';
+                    videoButton.style.visibility='visible';
                 }
             }, 6000);
-            videoButton.textContent ='';
+            
             break;
         case 'Terminar':      
             recognition.abort();  
@@ -90,9 +91,7 @@ videoButton.onclick=()=>{
         case 'Listo':
             transcripcion="";
             videoButton.textContent ='Siguiente';
-            //texto.style.marginTop="40%";
             texto.textContent=preguntas[0];
-            //texto.style.fontSize= "250%"
             recognition.start();
             startRecording();
             nuPregunta=preguntas[0]
@@ -200,7 +199,6 @@ function recordVideo(event){
                             body: JSON.stringify({ "url_video": base64data, "transcripcion": transcripcion, "tiempo": tiempoFin})
                         })
                         .then(response => response.json())
-                        .then(response => console.log(JSON.stringify(response)))
                         .then(waitUrlfn())
                   };
                 });
@@ -321,7 +319,7 @@ video.addEventListener('play',  () => {
        // console.log (detections["0"]);
     if(countError>4)
     {
-        alertas.textContent="oh! no te encontramos, ubícate frente a la cámara, revisa si hay mucha o poca luz y cambia de lugar si ese es el caso, por favor no uses objetos que obstruyan tu rostro";
+        alertas.textContent="¡OH! no te encontramos, ubícate frente a la cámara, revisa si hay mucha o poca luz y cambia de lugar si ese es el caso, por favor no uses objetos que obstruyan tu rostro";
             alertas.style.display='block'; 
         countError=0;    
     }

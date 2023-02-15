@@ -4,7 +4,6 @@ const fs = require('fs');
 const http = require('http');
 const https = require('https');
 const { exportsDB } = require("./db");
-//const cors = require('cors');
 const router = express.Router();
 const { spawn } = require("child_process");
 const { response } = require("express");
@@ -146,7 +145,11 @@ saveInformation(req);
 });
 
 router.get('/empezar', function(req, res, next) {
-  res.render('empezar', { title: 'Entrevistas HQ5',bttn:"Probar sonido",alerta:"espere un momento por favor",txt_content:"Recuerda que la entrevista es una herramienta que nos permite conocerte mejor, así que ponte cómodo y ayudanos respondiendo la preguntas que se te harán a continuación :)" });
+  res.render('empezar', {
+     title: 'Entrevistas HQ5',
+     bttn:"Probar sonido",
+     alerta:"espere un momento por favor a que la cámara cargue",
+     txt_content:"Recuerda que la entrevista es una herramienta que nos permite conocerte mejor, así que ponte cómodo y ayudanos respondiendo la preguntas que se te harán a continuación :)" });
 });
 
 router.get('/contacto', function(req, res, next) {
