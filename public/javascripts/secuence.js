@@ -263,8 +263,9 @@ try {
   }
   recognition.onresult = (event) => {
     //console.log("detectando");
-    if(videoButton.textContent ==''){
+    if( videoButton.style.visibility=='hidden'){
         videoButton.textContent ='Terminar';
+        videoButton.style.visibility='visible';
     }
     var results = event.results;
     var frase=results[results.length-1][0].transcript;

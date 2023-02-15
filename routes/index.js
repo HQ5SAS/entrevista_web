@@ -149,7 +149,7 @@ router.get('/empezar', function(req, res, next) {
      title: 'Entrevistas HQ5',
      bttn:"Probar sonido",
      alerta:"espere un momento por favor a que la cámara cargue",
-     txt_content:"Recuerda que la entrevista es una herramienta que nos permite conocerte mejor, así que ponte cómodo y ayudanos respondiendo la preguntas que se te harán a continuación :)" });
+     txt_content:"Recuerda que la entrevista es una herramienta que nos permite conocerte mejor, así que ponte cómodo y ayudanos respondiendo las preguntas que se te harán a continuación :)" });
 });
 
 router.get('/contacto', function(req, res, next) {
