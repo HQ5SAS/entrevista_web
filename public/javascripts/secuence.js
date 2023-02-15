@@ -57,7 +57,7 @@ videoButton.onclick=()=>{
 
     switch(videoButton.textContent){
         case 'Probar sonido':
-            texto.textContent='Por favor, lea toda instrucción antes de continuar. Primero de click al botón entendido. Depués lea la oración que aparece a continuación, que se encuentra entre comillas en voz alta. Después de click en el botón terminar. La oracion que debe decir es: "Esto es una prueba"';
+            texto.textContent='Por favor, lea toda instrucción antes de continuar. Primero de click al botón entendido. Depués lea SOLO la oración que se encuentra entre comillas en voz alta. Después de click en el botón terminar. La oracion que debe decir es: "Esto es una prueba"';
             videoButton.textContent ='Entendido';
             break;
         case 'Entendido':   
@@ -118,10 +118,11 @@ videoButton.onclick=()=>{
                 videoButton.textContent ='';
                 loadImage.style.visibility='visible';
                 loadImage.style.height="15%";
+                cronometro.style.display='none';
                 stopRecording();                 
             }   
             break;  
-        case 'Enviar entrevista':
+        case 'Contacto':
             window.location.href = enlace+ '/contacto'
             
         
