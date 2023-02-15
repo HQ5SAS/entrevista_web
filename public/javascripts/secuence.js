@@ -34,6 +34,7 @@ function waitUrlfn(){
         texto.textContent="¡Listo! Entrevista enviada exitosamente. Da click en el botón para acceder a nuestra sección de contacto";
         videoButton.textContent ='Contacto';
         alertas.style.visibility='hidden';
+        videoButton.style.visibility='visible';
     }, 20000); 
 }
 
@@ -65,7 +66,7 @@ videoButton.onclick=()=>{
             transcripcion="";
             recognition.start();
             setTimeout(function(){
-                if(videoButton.textContent ==''){
+                if(videoButton.style.visibility=='hidden'){
                     videoButton.textContent ='Terminar';
                     videoButton.style.visibility='visible';
                 }
@@ -115,11 +116,14 @@ videoButton.onclick=()=>{
                 clearInterval(id);
                 texto.textContent="Espere mientras se carga la entrevista... :)";
                 texto.style.marginTop="0%";
-                videoButton.textContent ='';
+                videoButton.style.visibility='hidden'
                 loadImage.style.visibility='visible';
                 loadImage.style.height="15%";
                 cronometro.style.display='none';
-                stopRecording();                 
+                stopRecording();            
+                stream.getTracks().forEach(function(track) {
+                    track.stop();
+                  });     
             }   
             break;  
         case 'Contacto':
@@ -200,6 +204,7 @@ function recordVideo(event){
                             body: JSON.stringify({ "url_video": base64data, "transcripcion": transcripcion, "tiempo": tiempoFin})
                         })
                         .then(response => response.json())
+                        .then(response => console.log(JSON.stringify(response)))
                         .then(waitUrlfn())
                   };
                 });
