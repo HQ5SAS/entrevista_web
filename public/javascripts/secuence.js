@@ -308,6 +308,7 @@ try {
   //--lectura de texto
   function readTxt(txt){
     const hablar = new SpeechSynthesisUtterance();
+    hablar.lang= 'es-ES';
     hablar.text = txt;
     hablar.volume =1;
     hablar.rate =1;
