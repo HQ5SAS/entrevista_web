@@ -351,12 +351,14 @@ video.addEventListener('play',  () => {
     catch (error){
         countError ++;
     }
-       // console.log (detections["0"]);
-    if(countError>8)
+    if(countError>5)
     {
-        alertas.textContent="¡OH! No te encontramos, ubícate frente a la cámara, revisa si hay mucha o poca luz y cambia de lugar si ese es el caso, por favor no uses objetos que obstruyan tu rostro";
+            alertas.textContent="¡OH! No te encontramos, ubícate frente a la cámara, revisa si hay mucha o poca luz y cambia de lugar si ese es el caso, por favor no uses objetos que obstruyan tu rostro";
             alertas.style.display='block'; 
-        countError=0;    
+            setTimeout(function(){
+                countError=0;
+            }, 6000); 
+               
     }
 
     },900)

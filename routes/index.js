@@ -148,7 +148,7 @@ router.get('/empezar', function(req, res, next) {
   res.render('empezar', {
      title: 'Entrevistas HQ5',
      bttn:"Probar sonido",
-     alerta:"espere un momento por favor a que la cámara cargue",
+     alerta:"Espera un momento mientras cargan la configuraciones de cámara",
      txt_content:"Recuerda que la entrevista es una herramienta que nos permite conocerte mejor, así que ponte cómodo y ayudanos respondiendo las preguntas que se te harán a continuación :)" });
 });
 
