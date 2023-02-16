@@ -9,7 +9,7 @@ const { spawn } = require("child_process");
 const { response } = require("express");
 const { render } = require("ejs");
 //const host = 'https://entrevistas.gestionhq5.com.co';
-const host = 'https://localhost:3060';
+const host = 'https://entrevistas.gestionhq5.com.co';
 
 //var ID_user ="3960020000016631899";
 //var requi = "1234";
