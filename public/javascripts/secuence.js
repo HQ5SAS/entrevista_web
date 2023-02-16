@@ -53,18 +53,51 @@ if (divPreguntas.offsetWidth <"500"){
     texto.style.fontSize= "150%";
     videoButton.style.marginBottom = "10px"
 }
+//hide elements
+micImg.style.display='none'; 
+recGif.style.display='none';
+//--cuenta regresiva
+let seconds = 6;
+function cuentaReg(){
+    // Actualizamos el elemento de la cuenta regresiva cada segundo
+    const countdownTimer = setInterval(() => {
+      // Disminuimos el contador de segundos
+      seconds--;
 
+      // Actualizamos el elemento de la cuenta regresiva con el número actual de segundos
+      texto.textContent = seconds;
+
+      // Si hemos llegado a cero, detenemos el temporizador e inicamos entrevista
+      if (seconds <= 0) {
+        clearInterval(countdownTimer);
+        //instrucciones de inicialización de procesos
+        recGif.style.display='block';
+        videoButton.style.visibility='visible';
+            transcripcion="";
+            videoButton.textContent ='Siguiente';
+            texto.textContent=preguntas[0];recGif
+            recognition.start();
+            startRecording();
+            nuPregunta=preguntas[0]
+            readTxt(nuPregunta);
+            cronometrar();
+            cronometro.innerHTML="00:00";
+      }
+    }, 1000);
+}    
 //función que acutua de forma secuencial para el btn, 
+
 videoButton.onclick=()=>{
 
     switch(videoButton.textContent){
         case 'Probar sonido':
-            texto.textContent='Por favor, lea toda instrucción antes de continuar.\nPrimero de click al botón <<iniciar prueba>>. \nLuego lea SOLO la oración que se encuentra entre comillas en voz alta. \n Después de click en el botón <<terminar>> que aparecerá. \nLa oración que debe decir es: "Esto es una prueba"';
-            videoButton.textContent ='iniciar prueba';
+            texto.textContent='Por favor, lea toda instrucción antes de continuar.\nPrimero de click al botón <<Iniciar prueba>>. \nLuego lea SOLO la oración que se encuentra entre comillas en voz alta. \n Después de click en el botón <<Terminar>> que aparecerá. \nLa oración que debe decir es: "Esto es una prueba"';
+            videoButton.textContent ='Iniciar prueba'; 
             break;
-        case 'iniciar prueba':  
+        case 'Iniciar prueba':  
             micImg.style.display='block'; 
             videoButton.style.visibility='hidden';
+            micImg.style.display='block'; 
             transcripcion="";
             recognition.start();
             setTimeout(function(){
@@ -84,24 +117,18 @@ videoButton.onclick=()=>{
                 texto.textContent="A continación se realizará la entrevista virtual. Cuando des click en el botón 'Listo' se comenzará a grabar el video que se toma desde tu dispositivo.La entrevista tiene un tiempo límite de máximo 10 minutos."
             }
             else if(transcripcion==""){
-                texto.textContent='intente de nuevo por favor, no se detectó audio. Lea SOLO la oración que se encuentra entre comillas en voz alta. La oracion que debe decir es: "Esto es una prueba"'
-                videoButton.textContent ='iniciar prueba';
+                texto.textContent='Intente de nuevo por favor, no se detectó audio. Lea SOLO la oración que se encuentra entre comillas en voz alta. La oracion que debe decir es: "Esto es una prueba"'
+                videoButton.textContent ='Iniciar prueba';
             }
             else{
-                texto.textContent='intente de nuevo por favor, revise el ruido del lugar.\n Lea SOLO la oración que se encuentra entre comillas en voz alta. \n\nLa oracion que debe decir es: "Esto es una prueba"'
-                videoButton.textContent ='iniciar prueba';
+                texto.textContent='Intente de nuevo por favor, revise el ruido del lugar.\n Lea SOLO la oración que se encuentra entre comillas en voz alta. \n\nLa oracion que debe decir es: "Esto es una prueba"'
+                videoButton.textContent ='Iniciar prueba';
             }
             break;
         case 'Listo':
-            transcripcion="";
-            videoButton.textContent ='Siguiente';
-            texto.textContent=preguntas[0];
-            recognition.start();
-            startRecording();
-            nuPregunta=preguntas[0]
-            readTxt(nuPregunta);
-            cronometrar();
-            cronometro.innerHTML="00:00";
+            cuentaReg();
+            videoButton.style.visibility='hidden';
+            
             break;
         case 'Siguiente':
             countPreguntas ++;
@@ -114,10 +141,11 @@ videoButton.onclick=()=>{
             } 
             else if (countPreguntas==preguntas.length)
             {
+                recGif.style.display='none';
                 pararCrono();
                 recognition.abort();
                 clearInterval(id);
-                texto.textContent="Espere mientras se carga la entrevista... :)";
+                texto.textContent="Espera mientras se envía la entrevista... :)";
                 texto.style.marginTop="0%";
                 videoButton.style.visibility='hidden'
                 loadImage.style.visibility='visible';
