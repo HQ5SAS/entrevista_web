@@ -41,20 +41,24 @@
           </header>
           <!---->
           <main>
+            <div class="text-justify center_ col" > <img id="recGif"  src="/images/rec.gif" width="60px"> 
+          <div class="text-justify center_ col d-flex justify-content-center align-items-center" style="flex-direction:column">
             
-          <div class="text-justify center_ ">
-            <img id="recGif" src="/images/rec.gif" width="60px">
             <div id="alertas" class="alert alert-danger" role="alert"><%= alerta %></div>
             <img id="loadImg" src="/images/loading.gif">
-            <div class="col border-end  d-flex justify-content-center align-items-center">
+            <div class="">
             <p id="pregunta_txt"><%= txt_content %></p>
           </div>
-            <div class="col border-end  d-flex justify-content-center align-items-center">
+          <div>
             <p id="timer"></p>
+          </div> 
+            <div>
+            
           <div  id="next_bttn" class="btn btn-lg btn-info text-light"><%= bttn %></div>  
-          <div ><img id="mic" src="/images/microphone.png" width="60px"></div>
         </div>   
+        <div ><img id="mic" class="my-3" src="/images/microphone.png" width="60px"></div>
         </div>
+      </div>
           <!-- <script defer src="./javascripts/deteccionRostro.js"> </script>  -->
         </div>
         </div>

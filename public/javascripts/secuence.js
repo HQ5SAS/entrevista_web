@@ -41,7 +41,7 @@ function waitUrlfn(){
 
 //--------dominio
 // https://entrevistas.gestionhq5.com.co
-const enlace= "https://entrevistas.gestionhq5.com.co";
+const enlace= "http://localhost:3060";
 //-----estilos modif
 if (divPreguntas.offsetWidth <"500"){
    divPreguntas.classList.remove('text-bg-dark');
@@ -336,11 +336,11 @@ video.addEventListener('play',  () => {
         var heightFace=detections["0"]["landmarks"]["_imgDims"]["_height"];
         
         if (heightFace >=290){
-            alertas.textContent="Alejese un poco de la cámara por favor";
+            alertas.textContent="Aléjate un poco de la cámara";
             alertas.style.display='block'; 
         }
         else if(heightFace <=120){
-            alertas.textContent="Acerquese un poco a la cámara por favor";
+            alertas.textContent="Acércate un poco a la cámara";
             alertas.style.display='block'; 
         }
         else{
@@ -352,9 +352,9 @@ video.addEventListener('play',  () => {
         countError ++;
     }
        // console.log (detections["0"]);
-    if(countError>4)
+    if(countError>8)
     {
-        alertas.textContent="¡OH! no te encontramos, ubícate frente a la cámara, revisa si hay mucha o poca luz y cambia de lugar si ese es el caso, por favor no uses objetos que obstruyan tu rostro";
+        alertas.textContent="¡OH! No te encontramos, ubícate frente a la cámara, revisa si hay mucha o poca luz y cambia de lugar si ese es el caso, por favor no uses objetos que obstruyan tu rostro";
             alertas.style.display='block'; 
         countError=0;    
     }
