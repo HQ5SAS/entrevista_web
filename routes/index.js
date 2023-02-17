@@ -5,16 +5,20 @@ const http = require('http');
 const https = require('https');
 const { exportsDB } = require("./db");
 const router = express.Router();
-const { spawn } = require("child_process");
+const { spawn, ChildProcess } = require("child_process");
+const { fork } = require("child_process")
 const { response } = require("express");
 const { render } = require("ejs");
+
+
 //const host = 'https://entrevistas.gestionhq5.com.co';
-const host = 'https://entrevistas.gestionhq5.com.co';
+const host = 'http://localhost:3060';
+
 
 //var ID_user ="3960020000016631899";
 //var requi = "1234";
-con= exportsDB();
-
+const con= exportsDB();
+const forked = fork('./jsQuerys/child.js');
 //-
 
 //-- funciones 
@@ -97,20 +101,23 @@ router.get('/', function(req, res, next) {
   var segundos=(fecha.getSeconds());
 
   var fechaFinEntrevista= `${dia}/${mes}/${anio}T${hora}:${minutos}:${segundos}`;
-  console.log(fechaFinEntrevista);
-  try{
-    var sql = "INSERT INTO `defaultdb`.`entrevistas` (`respuestas`, `duracion_entrevista`, `fecha_entrevista`, `aplicar_convocatorias_id`,`entrevistaBase64`) VALUES ('"+respuestas + "', '"+ duracion+ "', '"+fechaFinEntrevista + "', '"+ ID_user+ "', '"+ urlVideo+ "');";
-    this.con.query(sql, function (err, result) {
-      if (err) throw err; 
-      console.log("video guardado en db");
+  
+  
+
+  // try{
+   var sql = "INSERT INTO `defaultdb`.`entrevistas` (`respuestas`, `duracion_entrevista`, `fecha_entrevista`, `aplicar_convocatorias_id`,`entrevistaBase64`) VALUES ('"+respuestas + "', '"+ duracion+ "', '"+fechaFinEntrevista + "', '"+ ID_user+ "', '"+ urlVideo+ "');";
+   forked.on('sql', (sql))
+   //   this.con.query(sql, function (err, result) {
+  //     if (err) throw err; 
+  //     console.log("video guardado en db");
       
-    });
-    this.con.commit();
-      resSQL="succesfull query"; 
-  }
-  catch (error){
-    resSQL =error + " error query:()";
-  }
+  //   });
+  //   this.con.commit();
+  //     resSQL="succesfull query"; 
+  // }
+  // catch (error){
+  //   resSQL =error + " error query:()";
+  // }
   //obtener preguntas requi ZOHO
   // try{
   //   python_getInfo({"key":"contenido", "requi": requi })
@@ -137,11 +144,14 @@ router.get('/', function(req, res, next) {
   //console.log(url_);
   return({"key":urlVideo, "resSQL":resSQL, "resZoho":resZoho, "resVideo":resVideo});
 }
+  
 //--video
 router.post('/video', function(req, res) {
   
+  const sqlQuery = spawn();
+  sqlQuery.stdin.on('query',saveInformation(req))
 
-saveInformation(req);
+
 });
 
 router.get('/empezar', function(req, res, next) {
