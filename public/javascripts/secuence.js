@@ -111,7 +111,6 @@ videoButton.onclick=()=>{
         case 'Terminar':     
         micImg.style.display='none'; 
             recognition.abort();  
-            console.log(transcripcion);    
             if(transcripcion.replace('.', '')=="Esto es una prueba"){
                 videoButton.textContent ='Listo';
                 texto.textContent="A continación se realizará la entrevista virtual. Cuando des click en el botón 'Listo' se comenzará a grabar el video que se toma desde tu dispositivo.La entrevista tiene un tiempo límite de máximo 10 minutos."
@@ -179,8 +178,8 @@ async function init(){
         startWebCamera(stream);
     }
     catch(e){
-        console.log("Error con el dispositivo de video");
-        console.log(e);
+       // console.log("Error con el dispositivo de video");
+        //console.log(e);
     }
     m = 0;
     s = 0;   
@@ -232,7 +231,7 @@ function recordVideo(event){
                             body: JSON.stringify({ "url_video": base64data, "transcripcion": transcripcion, "tiempo": tiempoFin})
                         })
                         .then(response => response.json())
-                        .then(response => console.log(JSON.stringify(response)))
+                        //.then(response => console.log(JSON.stringify(response)))
                         .then(waitUrlfn())
                   };
                 });
@@ -291,7 +290,7 @@ try {
     recognition.interimResults = false;
   }
   catch(e) {
-    console.error(e);
+    //console.error(e);
     $('.no-browser-support').show();
     $('.app').hide();
   }
