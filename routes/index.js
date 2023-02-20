@@ -74,7 +74,7 @@ router.get('/', function(req, res, next) {
    //python_getInfo({"key":"contenido", "requi": requi});
    console.log('requi:'+ requi+'id:'+ID_user);
   //titulo en pestaña 
-  res.render('index', { title: 'Consejos'});
+  res.render('index', { title: 'Consejos', idHTML: ID_user, requiHTML:requi});
  
 });
 //---busqueda registro para función sen info (cambia registro de zoho)

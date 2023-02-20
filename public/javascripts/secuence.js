@@ -43,7 +43,7 @@ function waitUrlfn(){
 // https://entrevistas.gestionhq5.com.co
 const enlace= "http://localhost:3060";
 //-----estilos modif
-if (divPreguntas.offsetWidth <"500"){
+if (divPreguntas.offsetWidth <"415"){
    divPreguntas.classList.remove('text-bg-dark');
     body_.style.backgroundColor="rgb(240, 240, 240)";
     divVideo.style.height = "30vh";

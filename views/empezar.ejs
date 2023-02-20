@@ -1,9 +1,9 @@
 <%- include templates/header.ejs %>
 <!--init-->
       <!-- boddy style -->
-      <script defer src="./javascripts/face-api.min.js"> </script> 
-      <script defer src="./javascripts/secuence.js"> </script> 
-      <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+      <script defer src="../javascripts/face-api.min.js"> </script> 
+      <script defer src="../../javascripts/secuence.js"> </script> 
+      <!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
       
   <body class="text-center text-bg-dark helv" >
     
@@ -45,7 +45,7 @@
           <div class="text-justify center_ col d-flex justify-content-center align-items-center" style="flex-direction:column">
             
             <div id="alertas" class="alert alert-danger" role="alert"><%= alerta %></div>
-            <img id="loadImg" src="/images/loading.gif">
+            <img id="loadImg" src="/images/loading.gif" width="200px">
             <div class="">
             <p id="pregunta_txt"><%= txt_content %></p>
           </div>

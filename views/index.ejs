@@ -1,5 +1,20 @@
 <%- include templates/header.ejs %>
+
+
 <body class="text-center text-bg-dark">
+  <script>
+    var idHTML = "<%= idHTML %>";
+    var requiHTML = "<%= requiHTML %>";
+    console.log(idHTML);
+    console.log(requiHTML);
+  
+    console.log("http://localhost:3060/empezar?id="+idHTML+"&requi="+requiHTML)
+    document.getElementById("buttonEmpezar").onclick = function getURL() {     
+          window.location = 'http://localhost:3060/empezar'
+          //?id='+idHTML+'&requi='+requiHTML;
+      //"http://localhost:3060/empezar?id="+idHTML+"&requi="+requiHTML;
+    }
+  </script>
   <form action="/index" method="post">
   
 <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
@@ -18,11 +33,11 @@
              <br> No te olvides de cuidar la imágen.  <br>
             <br>Al hacer click en empezar se te solicitará permisos para acceder a la cámara y sonido, porfavor selecciona la opción de <b>permitir.</b><br>
             <br><img src="/images/permisosWeb.png" width="300px"class="rounded mx-auto d-block">
-            <br>Cuando se tengan los permisos requeridos, se activará la cáma y se realizará primero una prueba de sonido, después empezará la entrevista.
+            <br>Cuando se tengan los permisos requeridos, se activará la cámara y se realizará primero una prueba de sonido, después empezará la entrevista.
       </ul>
 
   <p class="lead">
-    <a href="./empezar" class="btn btn-info">Empezar</a>
+    <button id="buttonEmpezar" type="button" onclick="getUrl()" class="btn btn-info">Empezar</button>
   </p>
 </div>
 </div>
