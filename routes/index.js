@@ -9,6 +9,8 @@ const { spawn, ChildProcess } = require("child_process");
 const { fork } = require("child_process")
 const { response } = require("express");
 const { render } = require("ejs");
+const { resolve } = require("path");
+const { rejects } = require("assert");
 
 
 //const host = 'https://entrevistas.gestionhq5.com.co';
@@ -18,7 +20,7 @@ const host = 'http://localhost:3060';
 //var ID_user ="3960020000016631899";
 //var requi = "1234";
 const con= exportsDB();
-const forked = fork('./jsQuerys/child.js');
+//const forked = fork('./jsQuerys/child.js');
 //-
 
 //-- funciones 
@@ -66,13 +68,14 @@ function python_sendInfo(content){
 }
 //------pagina principal
 router.get('/', function(req, res, next) {
+   //variables de usuario
+   this.ID_user = req.query.id;
+   var requi = req.query.requi;
+   //python_getInfo({"key":"contenido", "requi": requi});
+   console.log('requi:'+ requi+'id:'+ID_user);
   //titulo en pestaña 
-  res.render('index', { title: 'Consejos' });
-  //variables de usuario
-  this.ID_user = req.query.id;
-  var requi = req.query.requi;
-  //python_getInfo({"key":"contenido", "requi": requi});
-  console.log('requi:'+ requi+'id:'+ID_user);
+  res.render('index', { title: 'Consejos'});
+ 
 });
 //---busqueda registro para función sen info (cambia registro de zoho)
 // router.get("/zoho/get", function(req, res){
@@ -81,7 +84,9 @@ router.get('/', function(req, res, next) {
 //   res.send("solicitud recibida");
 // });
 
-//---finalizar entrevista+
+//---finalizar entrevista
+
+
 //-fn video
  function saveInformation(req){  
   var resSQL="";
@@ -103,58 +108,77 @@ router.get('/', function(req, res, next) {
   var fechaFinEntrevista= `${dia}/${mes}/${anio}T${hora}:${minutos}:${segundos}`;
   
   
-
-  // try{
+try{
    var sql = "INSERT INTO `defaultdb`.`entrevistas` (`respuestas`, `duracion_entrevista`, `fecha_entrevista`, `aplicar_convocatorias_id`,`entrevistaBase64`) VALUES ('"+respuestas + "', '"+ duracion+ "', '"+fechaFinEntrevista + "', '"+ ID_user+ "', '"+ urlVideo+ "');";
    forked.on('sql', (sql))
-   //   this.con.query(sql, function (err, result) {
-  //     if (err) throw err; 
-  //     console.log("video guardado en db");
+     this.con.query(sql, function (err, result) {
+      if (err) throw err; 
+      console.log("video guardado en db");
       
-  //   });
-  //   this.con.commit();
-  //     resSQL="succesfull query"; 
-  // }
-  // catch (error){
-  //   resSQL =error + " error query:()";
-  // }
-  //obtener preguntas requi ZOHO
-  // try{
-  //   python_getInfo({"key":"contenido", "requi": requi })
-  // }
-  // catch (error){
-  //   console.log("error get info")
-  // }
+    });
+    this.con.commit();
+      resSQL="succesfull query"; 
+  }
+  catch (error){
+    resSQL =error + " error query:()";
+  }
+//   //obtener preguntas requi ZOHO
+//   try{
+//     python_getInfo({"key":"contenido", "requi": requi })
+//   }
+//   catch (error){
+//     console.log("error get info")
+//   }
 
-  //envío de info a zoho--------------------------------------------------------ººººº
-  // try{
-  //   python_sendInfo({"key":"contenido", "id": ID_user});
-     resZoho= "info actualizada zoho"
-  // }
-  // catch (error){
-  //   esZoho=error;
-  // }
-//-------------------------------------------------------------------
+//   //envío de info a zoho--------------------------------------------------------ººººº
+//    try{
+//      python_sendInfo({"key":"contenido", "id": ID_user});
+//      resZoho= "info actualizada zoho"
+//    }
+//    catch (error){
+//      esZoho=error;
+//    }
+// //-------------------------------------------------------------------
   
 
-//get videoo-----------------------------
+// //get videoo-----------------------------
 
-//------------------------------------
-//--;
-  //console.log(url_);
-  return({"key":urlVideo, "resSQL":resSQL, "resZoho":resZoho, "resVideo":resVideo});
+// //------------------------------------
+// //--;
+//   //console.log(url_);
+//   return({"key":urlVideo, "resSQL":resSQL, "resZoho":resZoho, "resVideo":resVideo});
 }
   
 //--video
 router.post('/video', function(req, res) {
-  
-  const sqlQuery = spawn();
-  sqlQuery.stdin.on('query',saveInformation(req))
+  const envioInfoDB=()=>{
+    return new Promise((resolve, reject)=>{
+     try{
+      saveInformation(req);
+     }
+     catch(err){
+      reject(new Error('error de guardado'));
+     }
+      
+    })
+  }
+  async function guardarEntrevista (){
+    try{
+      const estado= await envioInfoDB();
+      console.log('guardao exitoso: '+estado);
+    }
+    catch(err){
+      console.log(err);
+    }
+  }
+  guardarEntrevista();
 
 
 });
 
 router.get('/empezar', function(req, res, next) {
+  var ID_userEmp = req.query.id;
+  var requiEmp = req.query.requi;
   res.render('empezar', {
      title: 'Entrevistas HQ5',
      bttn:"Probar sonido",
