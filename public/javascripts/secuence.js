@@ -205,7 +205,7 @@ function recordVideo(event){
     if (event.data && event.data.size > 0){
         video.srcObject=null;
         var videoUrl=URL.createObjectURL(event.data);
-        //video.src="/images/loading.gif";
+        console.log("url object")
 
         var resVideo=""
         try{
@@ -216,10 +216,10 @@ function recordVideo(event){
                   url: file, // blob url 
                   responseType: "blob",
                 }).then(function (response) {
-                  var reader = new FileReader();
                   reader.readAsDataURL(response.data);
                   reader.onloadend = function () {
                     var base64data = reader.result;
+                    console.log(base64data)
                     const formData = new FormData();
                     formData.append("file", base64data);
                       fetch(enlace+ '/video', {
@@ -231,7 +231,6 @@ function recordVideo(event){
                             body: JSON.stringify({ "url_video": base64data, "transcripcion": transcripcion, "tiempo": tiempoFin})
                         })
                         .then(response => response.json())
-                        //.then(response => console.log(JSON.stringify(response)))
                         .then(waitUrlfn())
                   };
                 });
@@ -247,6 +246,7 @@ function recordVideo(event){
         
         catch(error) {
           resVideo = error;
+          console.log(error)
         }
         //console.log(resVideo);
         

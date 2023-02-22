@@ -73,7 +73,7 @@ router.get('/', function(req, res, next) {
    var requi = req.query.requi;
    //python_getInfo({"key":"contenido", "requi": requi});
    console.log('requi:'+ requi+'id:'+ID_user);
-  //titulo en pestaña 
+  //titulo en pestaña envío de variables para url
   res.render('index', { title: 'Consejos', idHTML: ID_user, requiHTML:requi});
  
 });
@@ -122,6 +122,7 @@ try{
   catch (error){
     resSQL =error + " error query:()";
   }
+  return resSQL
 //   //obtener preguntas requi ZOHO
 //   try{
 //     python_getInfo({"key":"contenido", "requi": requi })
@@ -151,20 +152,19 @@ try{
   
 //--video
 router.post('/video', function(req, res) {
-  const envioInfoDB=()=>{
-    return new Promise((resolve, reject)=>{
-     try{
-      saveInformation(req);
+  const enviarVideo= new Promise((resolve, reject)=>{
+     if(saveInformation(req)== "succesfull query"){
+      resolve('envisdoo sii')
      }
-     catch(err){
+     else{
       reject(new Error('error de guardado'));
      }
       
     })
-  }
+  
   async function guardarEntrevista (){
     try{
-      const estado= await envioInfoDB();
+      const estado= await enviarVideo;
       console.log('guardao exitoso: '+estado);
     }
     catch(err){
