@@ -12,6 +12,9 @@ const header_=document.getElementById("header_");
 const recGif = document.getElementById("recGif");
 const micImg=document.getElementById("mic");
 //vars
+const id_= "1546";
+const requi="345441";
+
 var alertas =document.getElementById("alertas");
 var videoUrlglobal="";
 var sAux ="0";
@@ -178,8 +181,8 @@ async function init(){
         startWebCamera(stream);
     }
     catch(e){
-       // console.log("Error con el dispositivo de video");
-        //console.log(e);
+        console.log("Error con el dispositivo de video");
+        console.log(e);
     }
     m = 0;
     s = 0;   
@@ -205,8 +208,6 @@ function recordVideo(event){
     if (event.data && event.data.size > 0){
         video.srcObject=null;
         var videoUrl=URL.createObjectURL(event.data);
-        console.log("url object")
-
         var resVideo=""
         try{
   
@@ -216,19 +217,20 @@ function recordVideo(event){
                   url: file, // blob url 
                   responseType: "blob",
                 }).then(function (response) {
+                    var reader = new FileReader();
                   reader.readAsDataURL(response.data);
                   reader.onloadend = function () {
                     var base64data = reader.result;
-                    console.log(base64data)
                     const formData = new FormData();
                     formData.append("file", base64data);
+                    console.log(idUser+" req."+requiUser)
                       fetch(enlace+ '/video', {
                             method: 'POST',
                             headers: {
                             'Accept': 'application/json',
                             'Content-Type': 'application/json'
                         },
-                            body: JSON.stringify({ "url_video": base64data, "transcripcion": transcripcion, "tiempo": tiempoFin})
+                            body: JSON.stringify({ "url_video": base64data, "transcripcion": transcripcion, "tiempo": tiempoFin, "id":id_,"requi:":requi })
                         })
                         .then(response => response.json())
                         .then(waitUrlfn())
