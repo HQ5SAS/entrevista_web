@@ -21,13 +21,6 @@ var sAux ="0";
 var mAux ="0";
 var tiempoFin="0";
 var preguntas=preguntasList
-//[
-//     '¿Cuál es su experiencia previa relevante y qué le llevó a interesarse por este trabajo en particular?',
-//     '¿Cómo describiría sus fortalezas y habilidades relevantes para este trabajo?',
-//     '¿Qué expectativas tiene sobre este trabajo y cómo cree que puede contribuir a la empresa?',
-//     '¿Cómo maneja usted situaciones de alta demanda y plazos ajustados en un entorno de trabajo acelerado?',
-//     '¿Qué medidas toma para mantener actualizadas sus habilidades y conocimientos relevantes y mejorar continuamente su desempeño en el trabajo?'
-// ]
 var countPreguntas=0;
 var transcripcion="";
 let mediaRecorder;

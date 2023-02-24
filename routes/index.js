@@ -7,12 +7,12 @@ const { exportsDB } = require("./db");
 const con= exportsDB();
 const router = express.Router();
 const { spawn, ChildProcess } = require("child_process");
-const { fork } = require("child_process")
 const { response } = require("express");
 const { render } = require("ejs");
 const { resolve } = require("path");
 const { rejects } = require("assert");
 const { Console } = require("console");
+const { once } = require('events');
 
 
 //const host = 'https://entrevistas.gestionhq5.com.co';
@@ -21,46 +21,8 @@ const host = 'http://localhost:3060';
 //-
 
 //-- funciones 
-//get id info
-function python_getInfo(content, res,ID_userEmp,requiEmp){
-  //subproceso python fn
-   pythonProcess = spawn("python", ["./libs_python/getinfo.py"]);
-  var python_response = "";
 
-  pythonProcess.stdout.on("data", function (data) {
-    python_response += data.toString();
-  });
 
-  pythonProcess.stderr.on('data', function(data){
-    console.error(data.toString());
-  })
-
-  pythonProcess.stdout.on("end", function(){
-      x=JSON.parse(python_response )
-      console.log(x);
-      function loadPage(){
-        res.render('empezar', {
-          title: 'Entrevistas HQ5',
-          bttn:"Probar sonido",
-          alerta:"Espera un momento mientras cargan la configuraciones de cámara",
-          txt_content:"Recuerda que la entrevista es una herramienta que nos permite conocerte mejor, así que ponte cómodo y ayudanos respondiendo las preguntas que se te harán a continuación :)",
-          idUser: ID_userEmp,
-          requiUser: requiEmp,
-          preguntasList:x
-        });  
-      }
-      if(python_response.includes('err')){
-        res.render('error')
-      }
-      else{
-        loadPage()
-      }
-      
-  });
-
-  pythonProcess.stdin.write(JSON.stringify(content));
-  pythonProcess.stdin.end();
-}
 //---send info zoho fn
 function python_sendInfo(content){
   //subproceso python 
@@ -177,16 +139,66 @@ router.post('/video', function(req, res) {
 
 
 });
-var apiCall=""
 router.get('/empezar', function(req, res, next) {
-  var ID_userEmp = req.query.id;
-  var requiEmp = req.query.requi;
-  const getList= new Promise((resolve, reject)=>{  
-    python_getInfo({"key":"contenido", "requi": requiEmp },res,ID_userEmp,requiEmp);
-    resolve('Preguntas cargadas')  
+  let ID_userEmp = req.query.id;
+  let requiEmp = req.query.requi;
+  //get id info
+async function python_getInfo(content){
+  
+  //subproceso python fn
+   pythonProcess = spawn("python", ["./libs_python/getinfo.py"]);
+    var python_response = "";
+
+  pythonProcess.stdout.on("data", function (data) {
+    python_response += data.toString();
+  });
+
+  pythonProcess.stderr.on('data', function(data){
+    console.error(data.toString());
   })
 
+  pythonProcess.stdout.on("end", function(){
+    console.log(python_response ) 
+    loadPage(python_response)
+  });
+  pythonProcess.stdin.setEncoding = 'utf-8';
+  pythonProcess.stdin.write(JSON.stringify(content));
+  pythonProcess.stdin.end();
+
   
+}
+ 
+//   let listaP=[
+//     'x',
+//     '¿Cuál es su experiencia previa relevante y qué le llevó a interesarse por este trabajo en particular?',
+//     '¿Cómo describiría sus fortalezas y habilidades relevantes para este trabajo?',
+//     '¿Qué expectativas tiene sobre este trabajo y cómo cree que puede contribuir a la empresa?',
+//     '¿Cómo maneja usted situaciones de alta demanda y plazos ajustados en un entorno de trabajo acelerado?',
+//     '¿Qué medidas toma para mantener actualizadas sus habilidades y conocimientos relevantes y mejorar continuamente su desempeño en el trabajo?'
+// ]
+//   const getList= new Promise((resolve, reject)=>{  
+//     listaP= python_getInfo({"key":"contenido", "requi": requiEmp });
+//     resolve('ready')  
+//   }).then(console.log('aaaaaaaaa:'+listaP ))
+//console.log(x)
+  function loadPage(list){
+    res.render('empezar', {
+      title: 'Entrevistas HQ5',
+      bttn:"Probar sonido",
+      alerta:"Espera un momento mientras cargan la configuraciones de cámara",
+      txt_content:"Recuerda que la entrevista es una herramienta que nos permite conocerte mejor, así que ponte cómodo y ayudanos respondiendo las preguntas que se te harán a continuación :)",
+      idUser: ID_userEmp,
+      requiUser: requiEmp,
+      preguntasList:list
+    });  
+  }
+  python_getInfo({"key":"contenido", "requi": requiEmp });
+  // if(x.includes('err')){
+  //   res.render('error')
+  // }
+  // else{
+  //  res.render('error')
+  //}
 }); 
 
 router.get('/contacto', function(req, res, next) {
