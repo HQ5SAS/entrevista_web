@@ -12,34 +12,32 @@ const header_=document.getElementById("header_");
 const recGif = document.getElementById("recGif");
 const micImg=document.getElementById("mic");
 //vars
-const id_= "1546";
-const requi="345441";
+const id_= idUser;
+const requi=requiUser;
 
 var alertas =document.getElementById("alertas");
 var videoUrlglobal="";
 var sAux ="0";
 var mAux ="0";
 var tiempoFin="0";
-var preguntas=[
-    '¿Cuál es su experiencia previa relevante y qué le llevó a interesarse por este trabajo en particular?',
-    '¿Cómo describiría sus fortalezas y habilidades relevantes para este trabajo?',
-    '¿Qué expectativas tiene sobre este trabajo y cómo cree que puede contribuir a la empresa?',
-    '¿Cómo maneja usted situaciones de alta demanda y plazos ajustados en un entorno de trabajo acelerado?',
-    '¿Qué medidas toma para mantener actualizadas sus habilidades y conocimientos relevantes y mejorar continuamente su desempeño en el trabajo?'
-]
+var preguntas=preguntasList
+//[
+//     '¿Cuál es su experiencia previa relevante y qué le llevó a interesarse por este trabajo en particular?',
+//     '¿Cómo describiría sus fortalezas y habilidades relevantes para este trabajo?',
+//     '¿Qué expectativas tiene sobre este trabajo y cómo cree que puede contribuir a la empresa?',
+//     '¿Cómo maneja usted situaciones de alta demanda y plazos ajustados en un entorno de trabajo acelerado?',
+//     '¿Qué medidas toma para mantener actualizadas sus habilidades y conocimientos relevantes y mejorar continuamente su desempeño en el trabajo?'
+// ]
 var countPreguntas=0;
 var transcripcion="";
 let mediaRecorder;
 //fn wait
 function waitUrlfn(){
-    setTimeout(function(){
-
-        loadImage.style.visibility='hidden';
-        texto.textContent="¡Listo! Entrevista enviada exitosamente. Da click en el botón para acceder a nuestra sección de contacto";
-        videoButton.textContent ='Contacto';
-        alertas.style.visibility='hidden';
-        videoButton.style.visibility='visible';
-    }, 20000); 
+    loadImage.style.visibility='hidden';
+    texto.textContent="¡Listo! Entrevista enviada exitosamente. Da click en el botón para acceder a nuestra sección de contacto";
+    videoButton.textContent ='Contacto';
+    alertas.style.visibility='hidden';
+    videoButton.style.visibility='visible';
 }
 
 //--------dominio
@@ -95,7 +93,7 @@ videoButton.onclick=()=>{
     switch(videoButton.textContent){
         case 'Probar sonido':
             texto.textContent='Por favor, lea toda instrucción antes de continuar.\nPrimero de click al botón <<Iniciar prueba>>. \nLuego lea SOLO la oración que se encuentra entre comillas en voz alta. \n Después de click en el botón <<Terminar>> que aparecerá. \nLa oración que debe decir es: "Esto es una prueba"';
-            videoButton.textContent ='Iniciar prueba'; 
+            videoButton.textContent ='Listo'; 
             break;
         case 'Iniciar prueba':  
             micImg.style.display='block'; 
@@ -104,7 +102,7 @@ videoButton.onclick=()=>{
             transcripcion="";
             recognition.start();
             setTimeout(function(){
-                if(videoButton.style.visibility=='hidden'){
+                if(videoButton.style.visibility=='hidden' ){
                     videoButton.textContent ='Terminar';
                     videoButton.style.visibility='visible';
                 }

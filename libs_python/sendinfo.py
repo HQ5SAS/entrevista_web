@@ -25,18 +25,6 @@ def zoho_api():
         a_tk = {
             'Authorization': 'Zoho-oauthtoken ' + acces_tk
         }
-        c_param = {
-            'criteria': 'ID=='+id_user
-        }
-        # ,params = param
-        c_js = requests.get('https://creator.zoho.com/api/v2/hq5colombia/hq5/report/Vista_General11', headers=a_tk,
-                            params=c_param)
-        c_js = json.loads(c_js.text)
-        # print(c_js)
-        c_code = c_js['code']
-        if (c_code == 3330):
-            print('ERROR:', c_js['message'])
-
         # Editar registro
 
         data_ = '{"data":{"entrevista_virtual":"true", "Estado_Postulacion":"Entrevista virtual realizada"}}'
@@ -48,7 +36,6 @@ def zoho_api():
         if (e_code == 3000):
             print('Actualizado con éxito')
         else:
-            print('ERROR:', e_js['message'])
-
+            print('ERROR_send:'+id_user+"  ", e_js['message'])
 
 zoho_api()

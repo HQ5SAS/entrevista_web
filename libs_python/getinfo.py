@@ -4,8 +4,9 @@ import requests
 
 comando = sys.stdin.readline()
 json_input = json.loads(comando)
-print(json_input)
+#print(json_input)
 requi_ = json_input["requi"]
+listaPreguntas=[]
 
 def zoho_api():
     # Obtener acces token
@@ -27,7 +28,7 @@ def zoho_api():
         }
         # 'ID==3960020000012096751'
         c_param = {
-            'criteria': 'id_requisicion=="'+requi_+'"'
+            'criteria': 'id_requisicion=='+requi_+'"'
         }
         # ,params = param
         c_js = requests.get('https://creator.zoho.com/api/v2/hq5colombia/hq5/report/requisiciones_entrevista', headers=a_tk,
@@ -36,13 +37,19 @@ def zoho_api():
         # print(c_js)
         c_code = c_js['code']
         if (c_code == 3330):
-            print('ERROR:', c_code['message'])
+            print('err. ERROR:', c_js['message'])
+            return('err. ERROR:', c_js['message'])
         elif (c_code == 3100):
-            print('Reporte no existente')
+            print('err. Reporte no existente')
+            return('err. Reporte no existente')
         elif (c_code == 3000):
             c_data = c_js['data']
-            for reporte in c_data:
-                print('REQUISICIÓN:', reporte['REQUISICION_RELATED']['display_value'])
-
-
+            #i=len(c_data['Preguntas_entrevista'])
+            x=-1
+            for pregunta in c_data[0]['Preguntas_entrevista']:
+                listaPreguntas.append(pregunta['display_value'])
+            print(listaPreguntas)
+            return(listaPreguntas)
+        else:
+            print('err. ERROR:',c_js['message'])
 zoho_api()
