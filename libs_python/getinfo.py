@@ -15,7 +15,6 @@ def zoho_api():
         'client_id': '1000.BXCXYLGQX0TPGT0B4KPR5NKV2RXK2U',
         'client_secret': '10e319c31847a45291d7b79b5344ea3b8329738a17',
         'grant_type': 'refresh_token'}
-
     tk_js = requests.post('https://accounts.zoho.com/oauth/v2/token', params=tk_param)
     tk_js = json.loads(tk_js.text)
 

@@ -43,6 +43,7 @@ function python_sendInfo(content){
 
   pythonProcess.stdin.write(JSON.stringify(content));
   pythonProcess.stdin.end();
+
 }
 //------pagina principal
 router.get('/', function(req, res, next) {
@@ -143,7 +144,7 @@ router.get('/empezar', function(req, res, next) {
   let ID_userEmp = req.query.id;
   let requiEmp = req.query.requi;
   //get id info
-async function python_getInfo(content){
+async function python_getInfo(content, lista){
   
   //subproceso python fn
    pythonProcess = spawn("python", ["./libs_python/getinfo.py"]);
@@ -159,12 +160,11 @@ async function python_getInfo(content){
 
   pythonProcess.stdout.on("end", function(){
     console.log(python_response ) 
-    loadPage(python_response)
+    lista(python_response)
   });
   pythonProcess.stdin.setEncoding = 'utf-8';
   pythonProcess.stdin.write(JSON.stringify(content));
   pythonProcess.stdin.end();
-
   
 }
  
@@ -192,7 +192,7 @@ async function python_getInfo(content){
       preguntasList:list
     });  
   }
-  python_getInfo({"key":"contenido", "requi": requiEmp });
+  python_getInfo({"key":"contenido", "requi": requiEmp }, loadPage);
   // if(x.includes('err')){
   //   res.render('error')
   // }
