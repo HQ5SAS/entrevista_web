@@ -20,7 +20,9 @@ var videoUrlglobal="";
 var sAux ="0";
 var mAux ="0";
 var tiempoFin="0";
-var preguntas=preguntasList
+// var preguntasx=preguntasList
+var preguntas=preguntasList.split(",")
+console.log(preguntas)
 var countPreguntas=0;
 var transcripcion="";
 let mediaRecorder;
