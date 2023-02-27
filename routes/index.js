@@ -13,13 +13,13 @@ const { resolve } = require("path");
 const { rejects } = require("assert");
 const { Console } = require("console");
 const { once } = require('events');
+var utf8 = require('utf8');
 
 
 //const host = 'https://entrevistas.gestionhq5.com.co';
 const host = 'http://localhost:3060';
 
 //-
-
 //-- funciones 
   //get id info
   async function python_getInfo(content, lista){
@@ -28,8 +28,8 @@ const host = 'http://localhost:3060';
      pythonProcess = spawn("python", ["./libs_python/getinfo.py"]);
       var python_response = "";
   
-    pythonProcess.stdout.on("data", function (data) {
-      python_response += data.toString();
+    pythonProcess.stdout.on("data", function (data) {  
+      python_response += data
     });
   
     pythonProcess.stderr.on('data', function(data){
@@ -37,8 +37,11 @@ const host = 'http://localhost:3060';
     })
   
     pythonProcess.stdout.on("end", function(){
-      console.log(python_response ) 
-      lista(python_response)
+      y=python_response.replace('b"[', '"[')
+      y=y.replaceAll("'", " ")
+      x= utf8.decode(y);
+      console.log("DECODE: "+x)
+      lista(y)
     });
     pythonProcess.stdin.setEncoding = 'utf-8';
     pythonProcess.stdin.write(JSON.stringify(content));
@@ -125,15 +128,6 @@ try{
   }
   return(resZoho);
 }
-//zoho 
-//obtener preguntas requi ZOHO
-//   try{
-//     python_getInfo({"key":"contenido", "requi": requi })
-//   }
-//   catch (error){
-//     console.log("error get info")
-//   }
-
 
   
 //--video
@@ -166,13 +160,15 @@ router.post('/video', function(req, res) {
 router.get('/empezar', function(req, res, next) {
   let ID_userEmp = req.query.id;
   let requiEmp = req.query.requi;
-  
+
   function loadPage(list){
     if(list.includes('err')){
-      res.render('error')
+      res.render('error',{
+        message:list
+      })
     }
     else{
-      list=list.replace(/'/g, '"');
+     // list=list.replace(/'/g, '"');
       list=JSON.parse(list)
       res.render('empezar', {
         title: 'Entrevistas HQ5',
@@ -195,7 +191,7 @@ router.get('/contacto', function(req, res, next) {
 module.exports = router;
 
 //------------------------------
-//see videoo-----------------------------
+//see video-----------------------------
 //-----------------------------------------------
 router.get('/vd6839h5kl', function(req, res, next) {
   
