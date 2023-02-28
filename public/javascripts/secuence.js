@@ -32,7 +32,23 @@ function waitUrlfn(){
     alertas.style.visibility='hidden';
     videoButton.style.visibility='visible';
 }
-
+//---
+function terminarEntrevista(){
+    recGif.style.display='none';
+    pararCrono();
+    recognition.abort();
+    clearInterval(id);
+    texto.textContent="Espera mientras se envía la entrevista... :)";
+    texto.style.marginTop="0%";
+    videoButton.style.visibility='hidden'
+    loadImage.style.visibility='visible';
+    loadImage.style.height="15%";
+    cronometro.style.display='none';
+    stopRecording();            
+    stream.getTracks().forEach(function(track) {
+        track.stop();
+  });  
+}
 //--------dominio
 // https://entrevistas.gestionhq5.com.co
 const enlace= "http://localhost:3060";
@@ -134,20 +150,8 @@ videoButton.onclick=()=>{
             } 
             else if (countPreguntas==preguntas.length)
             {
-                recGif.style.display='none';
-                pararCrono();
-                recognition.abort();
-                clearInterval(id);
-                texto.textContent="Espera mientras se envía la entrevista... :)";
-                texto.style.marginTop="0%";
-                videoButton.style.visibility='hidden'
-                loadImage.style.visibility='visible';
-                loadImage.style.height="15%";
-                cronometro.style.display='none';
-                stopRecording();            
-                stream.getTracks().forEach(function(track) {
-                    track.stop();
-                  });     
+                terminarEntrevista()
+                   
             }   
             break;  
         case 'Contacto':
@@ -266,6 +270,10 @@ function escribir(){
 
     cronometro.innerHTML = mAux + ":" + sAux; 
     tiempoFin=mAux + "." + sAux;
+    if(m>=7)
+    {
+        terminarEntrevista();
+    }
  } 
  function pararCrono(){
     clearInterval(id);
