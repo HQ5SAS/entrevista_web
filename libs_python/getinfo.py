@@ -41,9 +41,30 @@ def zoho_api():
         elif (c_code == 3000):
             c_data = c_js['data']
             for pregunta in c_data[0]['Preguntas_entrevista']:
-                listaPreguntas.append(pregunta['display_value'])
-            x=str(listaPreguntas);    
-            print(x.encode())
+                preg=pregunta['display_value']
+                listaPreguntas.append(preg)
+            listaStr=str(listaPreguntas)
+            dictionary = {
+                "á": "aaa",
+                "é": "eee",
+                "í":"iii",
+                "ó":"ooo",
+                "ú":"uuu",
+                "¿":"ppp",
+                "ü":"uuum",
+                "ñ":"nnn",
+                "Á": "AAA",
+                "É": "EEE",
+                "Í":"III",
+                "Ó":"OOO",
+                "Ú":"UUU",
+                "Ü":"UUUM",
+                "Ñ":"NNN"
+
+                  }
+            for char in dictionary.keys():
+                listaStr=listaStr.replace(char,dictionary[char])
+            print(listaStr)
         else:
             print('err. ERROR:',c_js['message'])
 zoho_api()

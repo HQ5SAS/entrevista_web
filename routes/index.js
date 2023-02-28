@@ -7,18 +7,33 @@ const { exportsDB } = require("./db");
 const con= exportsDB();
 const router = express.Router();
 const { spawn, ChildProcess } = require("child_process");
-const { response } = require("express");
-const { render } = require("ejs");
-const { resolve } = require("path");
-const { rejects } = require("assert");
-const { Console } = require("console");
-const { once } = require('events');
-var utf8 = require('utf8');
-
+const { StringDecoder } = require('node:string_decoder');
 
 //const host = 'https://entrevistas.gestionhq5.com.co';
 const host = 'http://localhost:3060';
-
+const dictionary = {
+  "aaa":"á",
+  "eee":"é",
+  "iii":"í",
+  "ooo":"ó",
+  "uuu":"ú",
+  "ppp":"¿",
+  "uuum":"ü",
+  "NNN":"Ñ",
+  "AAA":"Á",
+  "EEE":"É",
+  "III":"Í",
+  "OOO":"Ó",
+  "UUU":"Ú",
+  "UUUM":"Ü",
+  "nnn":"ñ"
+ }
+ function allReplace(str) {
+  for (const x in dictionary) {
+    str = str.replace(new RegExp(x, 'g'), dictionary[x]);
+  }
+  return str;
+};
 //-
 //-- funciones 
   //get id info
@@ -29,19 +44,16 @@ const host = 'http://localhost:3060';
       var python_response = "";
   
     pythonProcess.stdout.on("data", function (data) {  
-      python_response += data
+      python_response += data    
     });
   
     pythonProcess.stderr.on('data', function(data){
       console.error(data.toString());
     })
-  
+    
     pythonProcess.stdout.on("end", function(){
-      y=python_response.replace('b"[', '"[')
-      y=y.replaceAll("'", " ")
-      x= utf8.decode(y);
-      console.log("DECODE: "+x)
-      lista(y)
+      listaP=allReplace(python_response)
+      lista(listaP)
     });
     pythonProcess.stdin.setEncoding = 'utf-8';
     pythonProcess.stdin.write(JSON.stringify(content));
@@ -56,7 +68,7 @@ function python_sendInfo(content){
   var python_response = "";
 
   pythonProcess.stdout.on("data", function (data) {
-    python_response += data.toString();
+    python_response += data;
   });
 
   pythonProcess.stderr.on('data', function(data){
@@ -79,7 +91,8 @@ router.get('/', function(req, res, next) {
   //titulo en pestaña envío de variables para url
   res.render('index', { title: 'Consejos', idHTML: ID_user, requiHTML:requi});
  
-});
+ });
+
 //---busqueda registro para función sen info (cambia registro de zoho)
 
 //---finalizar entrevista
@@ -147,7 +160,7 @@ router.post('/video', function(req, res) {
   async function guardarEntrevista (){
     try{
       const estado= await enviarVideo.then(sendZoho(req));
-      console.log('guardao exitoso: '+estado);
+      console.log('guardado exitoso: '+estado);
     }
     catch(err){
       console.log(err);
@@ -168,7 +181,7 @@ router.get('/empezar', function(req, res, next) {
       })
     }
     else{
-     // list=list.replace(/'/g, '"');
+      list=list.replace(/'/g, '"');
       list=JSON.parse(list)
       res.render('empezar', {
         title: 'Entrevistas HQ5',
