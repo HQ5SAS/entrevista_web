@@ -5,15 +5,41 @@
     <div class="justify-content-center">
       <h3>HQ5 Entrevistas</h3>
     </div>
+  
   </header>
 <div class="d-flex justify-content-center">
   
-  <video controls  >
-    <%- source_video %> 
-
+  <video controls id="showVideo" >
+   
   </video>
 </div>
-  
+<div>
+  <button id="downloadBtn" onclick="downloadFile()" type="button" class="btn btn-info btnMargin">Descargar</button>
+</div>
+<script> 
+  const video= document.getElementById("showVideo");
+  const base64="<%= base64 %>";
+  const idUser="<%= idUser %>";
+
+  function downloadFile(){
+    const downloadLink= document.createElement('a');
+    const fileName= idUser+".webm";
+
+    downloadLink.href=base64;
+    downloadLink.download= fileName;
+    downloadLink.click();
+  }
+
+  function addSourceToVideo() {
+  var source = document.createElement('source');
+    source.src = base64;
+    source.type = 'video/webm';
+    video.appendChild(source);
+  }
+  //function downloadFile()
+  addSourceToVideo();
+
+</script>
 
 </p>
   

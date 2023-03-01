@@ -11,7 +11,7 @@ const { StringDecoder } = require('node:string_decoder');
 
 //const host = 'https://entrevistas.gestionhq5.com.co';
 //http://localhost:3060'
-const host = 'https://entrevistas.gestionhq5.com.co';
+const host = 'http://localhost:3060';
 const dictionary = {
   "aaa":"á",
   "eee":"é",
@@ -210,15 +210,12 @@ module.exports = router;
 router.get('/vd6839h5kl', function(req, res, next) {
   
   //variables de usuario
-  this.ID_user = req.query.id;
-  this.requi = req.query.requi;
-
-  let sqlVideo= "SELECT `entrevistaBase64` FROM defaultdb.entrevistas WHERE `aplicar_convocatorias_id` = "+ ID_user+";"
-  con.query(sqlVideo, function (err, result) {
-    if (err) throw err; 
-    var base64video = '"'+result[0]["entrevistaBase64"]+'"';
-    res.render('verVideo', { title: 'Video entrevistas HQ5',source_video:'<source type="video/webm" src= '+base64video+' >'  });
-  });
-
-    resSQL="succesfull query"; 
+  ID_userS = req.query.id;
+ 
+  let sqlVideo= "SELECT `entrevistaBase64` FROM defaultdb.entrevistas WHERE `aplicar_convocatorias_id` = "+ ID_userS+";"
+    con.query(sqlVideo, function (err, result) {
+      if (err) throw err; 
+      var base64video = result[0]["entrevistaBase64"];
+      res.render('verVideo', { title: 'Video entrevistas HQ5',base64: base64video, idUser:ID_userS });
+    });
 });
