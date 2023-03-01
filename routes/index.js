@@ -10,7 +10,8 @@ const { spawn, ChildProcess } = require("child_process");
 const { StringDecoder } = require('node:string_decoder');
 
 //const host = 'https://entrevistas.gestionhq5.com.co';
-const host = 'http://localhost:3060';
+//http://localhost:3060'
+const host = 'https://entrevistas.gestionhq5.com.co';
 const dictionary = {
   "aaa":"á",
   "eee":"é",
