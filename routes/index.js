@@ -219,3 +219,6 @@ router.get('/vd6839h5kl', function(req, res, next) {
       res.render('verVideo', { title: 'Video entrevistas HQ5',base64: base64video, idUser:ID_userS });
     });
 });
+router.get('/*', function(req, res, next) {
+  res.render('404err',  {title: 'error 404'})
+})
