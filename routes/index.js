@@ -35,7 +35,11 @@ const dictionary = {
   }
   return str;
 };
-//-
+//-errores
+const err500= '<img class="image-404" src="../../images/500err.svg" width="500px">';
+const err400= '<img class="image-404" src="../../images/400err.svg" width="500px">';
+
+
 //-- funciones 
   //get id info
   async function python_getInfo(content, lista){
@@ -174,29 +178,32 @@ router.post('/video', function(req, res) {
 router.get('/empezar', function(req, res, next) {
   let ID_userEmp = req.query.id;
   let requiEmp = req.query.requi;
-
-  function loadPage(list){
-    if(list.includes('err')){
-      res.render('error',{
-        message:list
-      })
-    }
-    else{
-      list=list.replace(/'/g, '"');
-      list=JSON.parse(list)
-      res.render('empezar', {
-        title: 'Entrevistas HQ5',
-        bttn:"Probar sonido",
-        alerta:"Espera un momento mientras cargan la configuraciones de cámara",
-        txt_content:"Recuerda que la entrevista es una herramienta que nos permite conocerte mejor, así que ponte cómodo y ayudanos respondiendo las preguntas que se te harán a continuación :)",
-        idUser: ID_userEmp,
-        requiUser: requiEmp,
-        preguntasList:list
-      });  
-    }
+  if (ID_userEmp == "" || requiEmp == ""){
+    return res.render('500err');
   }
-  python_getInfo({"key":"contenido", "requi": requiEmp }, loadPage);
-  
+  else{
+    function loadPage(list){
+      if(list.includes('err')){
+        res.render('error',{
+          message:list
+        })
+      }
+      else{
+        list=list.replace(/'/g, '"');
+        list=JSON.parse(list)
+        res.render('empezar', {
+          title: 'Entrevistas HQ5',
+          bttn:"Probar sonido",
+          alerta:"Espera un momento mientras cargan la configuraciones de cámara",
+          txt_content:"Recuerda que la entrevista es una herramienta que nos permite conocerte mejor, así que ponte cómodo y ayudanos respondiendo las preguntas que se te harán a continuación :)",
+          idUser: ID_userEmp,
+          requiUser: requiEmp,
+          preguntasList:list
+        });  
+      }
+    }
+    python_getInfo({"key":"contenido", "requi": requiEmp }, loadPage);
+}
 }); 
 
 router.get('/contacto', function(req, res, next) {
@@ -211,14 +218,27 @@ router.get('/vd6839h5kl', function(req, res, next) {
   
   //variables de usuario
   ID_userS = req.query.id;
- 
+  if (ID_userS==""){
+    return res.render('500err');
+  }
+  else{
+    
+  
+    try{
   let sqlVideo= "SELECT `entrevistaBase64` FROM defaultdb.entrevistas WHERE `aplicar_convocatorias_id` = "+ ID_userS+";"
     con.query(sqlVideo, function (err, result) {
       if (err) throw err; 
       var base64video = result[0]["entrevistaBase64"];
       res.render('verVideo', { title: 'Video entrevistas HQ5',base64: base64video, idUser:ID_userS });
     });
+  }
+  catch(err){
+    return res.render('500err');
+  }
+}
 });
+
 router.get('/*', function(req, res, next) {
   res.render('404err',  {title: 'error 404'})
 })
+
