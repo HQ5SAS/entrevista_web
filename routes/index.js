@@ -11,7 +11,7 @@ const { StringDecoder } = require('node:string_decoder');
 
 //const host = 'https://entrevistas.gestionhq5.com.co';
 //http://localhost:3060'
-const host = 'https://entrevistas.gestionhq5.com.co';
+const host = 'http://localhost:3060';
 const dictionary = {
   "aaa":"á",
   "eee":"é",
@@ -37,10 +37,15 @@ const dictionary = {
 };
 //-errores
 const err500= '<img class="image-404" src="../../images/500err.svg" width="500px">';
-const err400= '<img class="image-404" src="../../images/400err.svg" width="500px">';
+const err400= '<img class="image-404" src="../../images/400.svg" width="500px">';
 
 
 //-- funciones 
+//--error
+function errores(res, err){
+  res.render('500err', {type_err:err});
+}
+
   //get id info
   async function python_getInfo(content, lista){
   
@@ -88,15 +93,7 @@ function python_sendInfo(content){
   pythonProcess.stdin.end();
 
 }
-//------pagina principal
-router.get('/', function(req, res, next) {
-   //variables de usuario
-   this.ID_user = req.query.id;
-   var requi = req.query.requi;
-  //titulo en pestaña envío de variables para url
-  res.render('index', { title: 'Consejos', idHTML: ID_user, requiHTML:requi});
- 
- });
+
 
 //---busqueda registro para función sen info (cambia registro de zoho)
 
@@ -147,6 +144,29 @@ try{
   return(resZoho);
 }
 
+//------pagina principal
+router.get('/', function(req, res, next) {
+  //variables de usuario
+  
+  const ID_user = req.query.id;
+  const requi = req.query.requi;
+  console.log("id:"+ID_user+"  req:"+requi)
+  if(ID_user== (undefined||"")||requi==(undefined||""))
+  {
+    errores(res, err400)
+  }
+  else{
+   try{
+     //titulo en pestaña envío de variables para url
+     res.render('index', { title: 'Consejos', idHTML: ID_user, requiHTML:requi});
+   }
+   catch(err){
+    errores(res, err500)
+    console.log(err)
+   }
+  }
+ 
+});
   
 //--video
 router.post('/video', function(req, res) {
@@ -176,38 +196,51 @@ router.post('/video', function(req, res) {
 
 });
 router.get('/empezar', function(req, res, next) {
-  let ID_userEmp = req.query.id;
-  let requiEmp = req.query.requi;
-  if (ID_userEmp == "" || requiEmp == ""){
-    return res.render('500err');
+  const ID_userEmp = req.query.id;
+  const requiEmp = req.query.requi;
+  if(ID_userEmp== (undefined||"")||requiEmp==(undefined||""))
+  {
+    errores(res, err400)
   }
   else{
-    function loadPage(list){
-      if(list.includes('err')){
-        res.render('error',{
-          message:list
-        })
+    try{
+      function loadPage(list){
+        if(list.includes('err')){
+          //no hay registro o está erronea la requi
+          errores(res, err400);
+        }
+        else{
+          list=list.replace(/'/g, '"');
+          list=JSON.parse(list)
+          res.render('empezar', {
+            title: 'Entrevistas HQ5',
+            bttn:"Probar sonido",
+            alerta:"Espera un momento mientras cargan la configuraciones de cámara",
+            txt_content:"Recuerda que la entrevista es una herramienta que nos permite conocerte mejor, así que ponte cómodo y ayudanos respondiendo las preguntas que se te harán a continuación :)",
+            idUser: ID_userEmp,
+            requiUser: requiEmp,
+            preguntasList:list
+          });  
+        }
       }
-      else{
-        list=list.replace(/'/g, '"');
-        list=JSON.parse(list)
-        res.render('empezar', {
-          title: 'Entrevistas HQ5',
-          bttn:"Probar sonido",
-          alerta:"Espera un momento mientras cargan la configuraciones de cámara",
-          txt_content:"Recuerda que la entrevista es una herramienta que nos permite conocerte mejor, así que ponte cómodo y ayudanos respondiendo las preguntas que se te harán a continuación :)",
-          idUser: ID_userEmp,
-          requiUser: requiEmp,
-          preguntasList:list
-        });  
-      }
+      python_getInfo({"key":"contenido", "requi": requiEmp }, loadPage);
     }
-    python_getInfo({"key":"contenido", "requi": requiEmp }, loadPage);
+    catch(err){
+      errores(res, err500);
+      console.log(err);
+    }
+    
 }
 }); 
 
 router.get('/contacto', function(req, res, next) {
-  res.render('contacto', { title: 'Contacto HQ5' });
+  try{
+    res.render('contacto', { title: 'Contacto HQ5' });
+  }
+  catch(err){
+    errores(res, err500);
+      console.log(err);
+  }
 });
 module.exports = router;
 
@@ -215,27 +248,35 @@ module.exports = router;
 //see video-----------------------------
 //-----------------------------------------------
 router.get('/vd6839h5kl', function(req, res, next) {
-  
   //variables de usuario
   ID_userS = req.query.id;
-  if (ID_userS==""){
-    return res.render('500err');
+  if (ID_userS==(""||undefined)){
+    errores(res, err400);
   }
   else{
-    
-  
     try{
-  let sqlVideo= "SELECT `entrevistaBase64` FROM defaultdb.entrevistas WHERE `aplicar_convocatorias_id` = "+ ID_userS+";"
-    con.query(sqlVideo, function (err, result) {
-      if (err) throw err; 
-      var base64video = result[0]["entrevistaBase64"];
+      let sqlVideo= "SELECT `entrevistaBase64` FROM defaultdb.entrevistas WHERE `aplicar_convocatorias_id` = "+ ID_userS+";"
+      con.query(sqlVideo, function (err, result) {
+        if (err){
+          errores(res, err400);
+        }
+        else{ 
+          try{
+        var base64video = result[0]["entrevistaBase64"];
       res.render('verVideo', { title: 'Video entrevistas HQ5',base64: base64video, idUser:ID_userS });
-    });
+
+      }catch(err){
+        errores(res, err400);
+        console.log(err);
+      }
+        }
+      });
+    }
+    catch(err){
+      errores(res, err500);
+      console.log(err)
+    }
   }
-  catch(err){
-    return res.render('500err');
-  }
-}
 });
 
 router.get('/*', function(req, res, next) {
