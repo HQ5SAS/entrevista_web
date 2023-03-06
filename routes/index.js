@@ -74,7 +74,7 @@ function errores(res, err){
 //---send info zoho fn
 function python_sendInfo(content){
   //subproceso python 
-   pythonProcess = spawn("python", ["./libs_python/sendinfo.py"]);
+   pythonProcess = spawn("python3", ["./libs_python/sendinfo.py"]);
   var python_response = "";
 
   pythonProcess.stdout.on("data", function (data) {
