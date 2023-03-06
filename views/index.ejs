@@ -29,8 +29,9 @@
     <script>
     var idHTML = "<%= idHTML %>";
     var requiHTML = "<%= requiHTML %>";
+    var host= "<%= host %>";
   
-    var urlUser="http://localhost:3060/empezar?id="+idHTML+"&requi="+requiHTML
+    var urlUser= host+"/empezar?id="+idHTML+"&requi="+requiHTML
     document.getElementById("buttonEmpezar").onclick = function getURL() {     
           window.location = urlUser
     }

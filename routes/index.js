@@ -158,7 +158,7 @@ router.get('/', function(req, res, next) {
   else{
    try{
      //titulo en pestaña envío de variables para url
-     res.render('index', { title: 'Consejos', idHTML: ID_user, requiHTML:requi});
+     res.render('index', { title: 'Consejos', idHTML: ID_user, requiHTML:requi, host:host });
    }
    catch(err){
     errores(res, err500)
