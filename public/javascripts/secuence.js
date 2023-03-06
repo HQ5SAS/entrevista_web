@@ -52,7 +52,7 @@ function terminarEntrevista(){
 //--------dominio
 // https://entrevistas.gestionhq5.com.co
 //http://localhost:3060
-const enlace= "http://localhost:3060";
+const enlace= "https://entrevistas.gestionhq5.com.co";
 //-----estilos modif
 if (divPreguntas.offsetWidth <"415"){
    divPreguntas.classList.remove('text-bg-dark');
