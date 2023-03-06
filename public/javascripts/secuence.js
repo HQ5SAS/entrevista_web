@@ -83,16 +83,16 @@ function cuentaReg(){
         clearInterval(countdownTimer);
         //instrucciones de inicialización de procesos
         recGif.style.display='block';
+        transcripcion="";
+        videoButton.textContent ='Siguiente';
+        texto.textContent=preguntas[0];recGif
+        recognition.start();
+        startRecording();
+        nuPregunta=preguntas[0]
+        readTxt(nuPregunta);
+        cronometrar();
+        cronometro.innerHTML="00:00";
         videoButton.style.visibility='visible';
-            transcripcion="";
-            videoButton.textContent ='Siguiente';
-            texto.textContent=preguntas[0];recGif
-            recognition.start();
-            startRecording();
-            nuPregunta=preguntas[0]
-            readTxt(nuPregunta);
-            cronometrar();
-            cronometro.innerHTML="00:00";
       }
     }, 1000);
 }    
