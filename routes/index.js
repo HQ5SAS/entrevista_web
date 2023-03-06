@@ -110,7 +110,7 @@ function saveInformation(req){
   // get date
   var fecha=new Date();
   var dia = fecha.getDate();
-  var mes =fecha.getMonth();
+  var mes =fecha.getMonth()+1;
   var anio=fecha.getFullYear();
   var hora= (fecha.getHours());
   var minutos=(fecha.getMinutes());
