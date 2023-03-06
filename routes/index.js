@@ -50,7 +50,7 @@ function errores(res, err){
   async function python_getInfo(content, lista){
   
     //subproceso python fn
-     pythonProcess = spawn("python", ["./libs_python/getinfo.py"]);
+     pythonProcess = spawn("python3", ["./libs_python/getinfo.py"]);
       var python_response = "";
   
     pythonProcess.stdout.on("data", function (data) {  
