@@ -33,18 +33,17 @@ function waitUrlfn(){
     videoButton.style.visibility='visible';
 }
 //---
-function terminarEntrevista(){
+async function terminarEntrevista(){
     recGif.style.display='none';
     pararCrono();
-    recognition.abort().then(stopRecording());
+    recognition.abort();
     clearInterval(id);
     texto.textContent="Espera mientras se envía la entrevista... :)";
     texto.style.marginTop="0%";
     videoButton.style.visibility='hidden'
     loadImage.style.visibility='visible';
     loadImage.style.height="15%";
-    cronometro.style.display='none';
-    ;            
+    cronometro.style.display='none';          
     stream.getTracks().forEach(function(track) {
         track.stop();
   });  
@@ -150,7 +149,7 @@ videoButton.onclick=()=>{
             } 
             else if (countPreguntas==preguntas.length)
             {
-                terminarEntrevista()     
+                terminarEntrevista().then(stopRecording());     
             }   
             break;  
         case 'Contacto':
