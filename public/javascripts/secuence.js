@@ -86,7 +86,7 @@ function cuentaReg(){
         transcripcion="";
         videoButton.textContent ='Siguiente';
         texto.textContent=preguntas[0];recGif
-        //recognition.start();
+        recognition.start();
         startRecording();
         nuPregunta=preguntas[0]
         readTxt(nuPregunta);
@@ -137,9 +137,7 @@ videoButton.onclick=()=>{
             break;
         case 'Listo':
             cuentaReg();
-            videoButton.style.visibility='hidden';
-            recognition.start();
-            
+            videoButton.style.visibility='hidden';            
             break;
         case 'Siguiente':
             countPreguntas ++;
@@ -152,8 +150,7 @@ videoButton.onclick=()=>{
             } 
             else if (countPreguntas==preguntas.length)
             {
-                terminarEntrevista()
-                   
+                terminarEntrevista()     
             }   
             break;  
         case 'Contacto':
@@ -299,10 +296,6 @@ try {
   }
   recognition.onresult = (event) => {
     //console.log("detectando");
-    // if( videoButton.style.visibility=='hidden'){
-    //     videoButton.textContent ='Terminar';
-    //     videoButton.style.visibility='visible';
-    // }
     var results = event.results;
     var frase=results[results.length-1][0].transcript;
     transcripcion += frase;
