@@ -36,7 +36,7 @@ function waitUrlfn(){
 function terminarEntrevista(){
     recGif.style.display='none';
     pararCrono();
-    recognition.abort();
+    recognition.abort().then(stopRecording());
     clearInterval(id);
     texto.textContent="Espera mientras se envía la entrevista... :)";
     texto.style.marginTop="0%";
@@ -44,7 +44,7 @@ function terminarEntrevista(){
     loadImage.style.visibility='visible';
     loadImage.style.height="15%";
     cronometro.style.display='none';
-    stopRecording();            
+    ;            
     stream.getTracks().forEach(function(track) {
         track.stop();
   });  
@@ -220,10 +220,10 @@ function recordVideo(event){
                     console.log(idUser+" req."+requiUser)
                       fetch(enlace+ '/video', {
                             method: 'POST',
-                            headers: {
+                            headers: {  
                             'Accept': 'application/json',
                             'Content-Type': 'application/json'
-                        },
+                            },
                             body: JSON.stringify({ "url_video": base64data, "transcripcion": transcripcion, "tiempo": tiempoFin, "id":id_,"requi:":requi })
                         })
                         .then(response => response.json())
