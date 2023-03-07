@@ -123,7 +123,7 @@ videoButton.onclick=()=>{
             recognition.abort();  
             if(transcripcion.replace('.', '')=="Esto es una prueba"){
                 videoButton.textContent ='Listo';
-                texto.textContent="A continación se realizará la entrevista virtual. Cuando des click en el botón 'Listo' se comenzará a grabar el video que se toma desde tu dispositivo.La entrevista tiene un tiempo límite de máximo 10 minutos."
+                texto.textContent="A continación se realizará la entrevista virtual. Cuando des click en el botón 'Listo' se comenzará a grabar el video que se toma desde tu dispositivo.La entrevista tiene un tiempo límite de máximo 7 minutos."
             }
             else if(transcripcion==""){
                 texto.textContent='Intente de nuevo por favor, no se detectó audio. Lea SOLO la oración que se encuentra entre comillas en voz alta. La oracion que debe decir es: "Esto es una prueba"'
