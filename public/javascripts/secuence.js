@@ -85,8 +85,13 @@ function cuentaReg(){
         recGif.style.display='block';
         transcripcion="";
         videoButton.textContent ='Siguiente';
-        texto.textContent=preguntas[0];recGif
+        texto.textContent=preguntas[0];
+        try{
         recognition.start();
+        }
+        catch(err){
+            texto.textContent=err;
+        }
         startRecording();
         nuPregunta=preguntas[0]
         readTxt(nuPregunta);
