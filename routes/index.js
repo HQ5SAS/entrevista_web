@@ -11,7 +11,8 @@ const { StringDecoder } = require('node:string_decoder');
 
 //const host = 'https://entrevistas.gestionhq5.com.co';
 //http://localhost:3060'
-const host = 'https://entrevistas.gestionhq5.com.co';
+//https://entrevistastest.gestionhq5.com.co
+const host = 'https://entrevistastest.gestionhq5.com.co';
 const dictionary = {
   "aaa":"á",
   "eee":"é",
