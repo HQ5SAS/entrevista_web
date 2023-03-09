@@ -11,7 +11,7 @@ const divPreguntas=document.getElementById("divicionDerecha");
 const header_=document.getElementById("header_");
 const recGif = document.getElementById("recGif");
 const micImg=document.getElementById("mic");
-const testConsole=getElementById("testConsole");
+const testConsole=document.getElementById("testConsole");
 //vars
 const id_= idUser;
 const requi=requiUser;
