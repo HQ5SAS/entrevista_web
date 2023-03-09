@@ -106,10 +106,12 @@ videoButton.onclick=()=>{
             videoButton.textContent ='Listo'; 
             break;
         case 'Iniciar prueba':  
+
             micImg.style.display='block'; 
             videoButton.style.visibility='hidden';
             micImg.style.display='block'; 
             transcripcion="";
+            
             recognition.start();
             setTimeout(function(){
                 if(videoButton.style.visibility=='hidden' ){
@@ -137,7 +139,6 @@ videoButton.onclick=()=>{
             break;
         case 'Listo':
             cuentaReg();
-            videoButton.style.visibility='hidden';            
             break;
         case 'Siguiente':
             countPreguntas ++;
