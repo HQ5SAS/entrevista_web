@@ -306,6 +306,7 @@ try {
     var frase=results[results.length-1][0].transcript;
     transcripcion += frase;
     testConsole.textContent=transcripcion;
+    console.log= transcripcion;
   }
   //--lectura de texto
   function readTxt(txt){
