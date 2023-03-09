@@ -11,6 +11,7 @@ const divPreguntas=document.getElementById("divicionDerecha");
 const header_=document.getElementById("header_");
 const recGif = document.getElementById("recGif");
 const micImg=document.getElementById("mic");
+const testConsole=getElementById("testConsole");
 //vars
 const id_= idUser;
 const requi=requiUser;
@@ -74,7 +75,6 @@ function cuentaReg(){
     const countdownTimer = setInterval(() => {
       // Disminuimos el contador de segundos
       seconds--;
-
       // Actualizamos el elemento de la cuenta regresiva con el número actual de segundos
       texto.textContent = seconds;
 
@@ -85,7 +85,7 @@ function cuentaReg(){
         recGif.style.display='block';
         transcripcion="";
         videoButton.textContent ='Siguiente';
-        texto.textContent=preguntas[0];
+        texto.textContent=preguntas[0]+ " .Transcrip:"+ transcripcion;
         try{
         recognition.start();
         }
@@ -305,6 +305,7 @@ try {
     var results = event.results;
     var frase=results[results.length-1][0].transcript;
     transcripcion += frase;
+    testConsole.textContent=transcripcion;
   }
   //--lectura de texto
   function readTxt(txt){
