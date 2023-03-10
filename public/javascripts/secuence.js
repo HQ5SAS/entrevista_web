@@ -90,7 +90,7 @@ function cuentaReg(){
         recognition.start();
         }
         catch(err){
-            texto.textContent=err;
+            textContent.textContent=err;
         }
         startRecording();
         nuPregunta=preguntas[0]
@@ -116,8 +116,12 @@ videoButton.onclick=()=>{
             videoButton.style.visibility='hidden';
             micImg.style.display='block'; 
             transcripcion="";
-            
+            try{
             recognition.start();
+            }
+            catch(err){
+                testConsole.textContent=err
+            }
             setTimeout(function(){
                 if(videoButton.style.visibility=='hidden' ){
                     videoButton.textContent ='Terminar';
@@ -295,19 +299,25 @@ try {
     recognition.continuous =true;
     recognition.interimResults = false;
   }
-  catch(e) {
+  catch(err) {
     //console.error(e);
-    testConsole.textContent=e
+    testConsole.textContent=err;
     $('.no-browser-support').show();
     $('.app').hide();
   }
   recognition.onresult = (event) => {
     //console.log("detectando");
-    var results = event.results;
-    var frase=results[results.length-1][0].transcript;
-    transcripcion += frase;
-    testConsole.textContent=transcripcion;
-    console.log(transcripcion) ;
+    try{
+        var results = event.results;
+        var frase=results[results.length-1][0].transcript;
+        transcripcion += frase;
+        testConsole.textContent=transcripcion;
+        console.log(transcripcion) ;
+    }
+    catch(err){
+        testConsole.textContent=err;
+    }
+    
   }
   //--lectura de texto
   function readTxt(txt){
