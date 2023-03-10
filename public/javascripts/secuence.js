@@ -132,7 +132,13 @@ videoButton.onclick=()=>{
             break;
         case 'Terminar':     
         micImg.style.display='none'; 
-            recognition.abort();  
+            try{
+                recognition.abort();  
+            }
+            catch(err){
+                testConsole.textContent(err);
+            }
+            
             if(transcripcion.replace('.', '')=="Esto es una prueba"){
                 videoButton.textContent ='Listo';
                 texto.textContent="A continación se realizará la entrevista virtual. Cuando des click en el botón 'Listo' se comenzará a grabar el video que se toma desde tu dispositivo.La entrevista tiene un tiempo límite de máximo 7 minutos."
