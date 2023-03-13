@@ -57,7 +57,7 @@ const enlace= "https://entrevistastest.gestionhq5.com.co";
 //-
 
 //-----estilos modif
-if (divPreguntas.offsetWidth <"415"){
+if (isMobile()){
    divPreguntas.classList.remove('text-bg-dark');
     body_.style.backgroundColor="rgb(240, 240, 240)";
     divVideo.style.height = "30vh";
@@ -391,3 +391,7 @@ video.addEventListener('play',  () => {
     },900)
 
 })
+//identify mobile
+function isMobile(){
+    return /Android|iPhone/i.test(navigator.userAgent);
+}
