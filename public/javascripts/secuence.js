@@ -393,5 +393,5 @@ video.addEventListener('play',  () => {
 })
 //identify mobile
 function isMobile(){
-    return /Android|iPhone/i.test(navigator.userAgent);
+    return /Android|iPhone/i.test(navigator.userAgent) && navigator.maxTouchPoints>0;
 }
