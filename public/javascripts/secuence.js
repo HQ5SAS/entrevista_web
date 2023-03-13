@@ -94,10 +94,10 @@ function cuentaReg(){
         catch(err){
             textContent.textContent=err;
         }
-        recognition.onend = function() {
-            console.info("voice recognition ended, restarting...");
-            recognition.start();
-        }
+        // recognition.onend = function() {
+        //     console.info("voice recognition ended, restarting...");
+        //     recognition.start();
+        // }
         startRecording();
         nuPregunta=preguntas[0]
         readTxt(nuPregunta);
