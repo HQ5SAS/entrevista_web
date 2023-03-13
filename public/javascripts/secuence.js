@@ -317,6 +317,7 @@ try {
     $('.no-browser-support').show();
     $('.app').hide();
   }
+
   recognition.onresult = (event) => {
     //console.log("detectando");
     try{
@@ -330,6 +331,9 @@ try {
         testConsole.textContent=err;
     }
     
+  }
+  recognition.onerror = (event) => {
+    testConsole.textContent = `Error occurred in recognition: ${event.error}`;
   }
   //--lectura de texto
   function readTxt(txt){
