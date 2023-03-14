@@ -56,9 +56,7 @@ async function terminarEntrevista(){
 const enlace= "https://entrevistastest.gestionhq5.com.co";
 //-
 ////////////
-recognition.addEventListener("error", (event) => {
-    testConsole.textContent= `Speech recognition error detected: ${event.error}`;
-  });
+
 //-----estilos modif
 if (isMobile()){
    divPreguntas.classList.remove('text-bg-dark');
@@ -123,9 +121,15 @@ videoButton.onclick=()=>{
             transcripcion="";
             try{
             recognition.start();
+            recognition.addEventListener("error", (event) => {
+                testConsole.textContent= `Speech recognition error detected: ${event.error}`;
+              });
             }
             catch(err){
                 testConsole.textContent=err
+                recognition.addEventListener("error", (event) => {
+                    testConsole.textContent= `Speech recognition error detected: ${event.error}`;
+                  });
             }
             setTimeout(function(){
                 if(videoButton.style.visibility=='hidden' ){
