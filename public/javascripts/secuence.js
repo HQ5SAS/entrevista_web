@@ -102,7 +102,7 @@ videoButton.onclick=()=>{
     switch(videoButton.textContent){
         case 'Probar sonido':
             texto.textContent='Por favor, lea toda instrucción antes de continuar.\nPrimero de click al botón <<Iniciar prueba>>. \nLuego lea SOLO la oración que se encuentra entre comillas en voz alta. \n Después de click en el botón <<Terminar>> que aparecerá. \nLa oración que debe decir es: "Esto es una prueba"';
-            videoButton.textContent ='Listo'; 
+            videoButton.textContent ='Iniciar prueba'; 
             break;
         case 'Iniciar prueba':  
             micImg.style.display='block'; 
