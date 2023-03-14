@@ -303,7 +303,7 @@ init();
 try {
     var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     var recognition = new SpeechRecognition();
-    recognition.lang='es-ES';
+    recognition.lang='es-CO';
     recognition.continuous =true;
     recognition.interimResults = false;
   }
@@ -334,7 +334,7 @@ try {
   //--lectura de texto
   function readTxt(txt){
     const hablar = new SpeechSynthesisUtterance();
-    hablar.lang= 'es-ES';
+    hablar.lang= 'es-CO';
     hablar.text = txt;
     hablar.volume =1;
     hablar.rate =1;
