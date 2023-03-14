@@ -92,7 +92,7 @@ function cuentaReg(){
         recognition.start();
         }
         catch(err){
-            textContent.textContent=err;
+            testConsole.textContent=err;
         }
         startRecording();
         nuPregunta=preguntas[0]
